@@ -1,0 +1,149 @@
+\documentclass{MainStyle}
+
+\usepackage{amsthm, amsfonts, amsmath, amssymb, quiver, mathrsfs, newclude, tikz-cd, ctex}
+
+% Customise href Colours.
+\usepackage[colorlinks = true,
+            linkcolor = blue,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+
+\newcommand{\changeurlcolor}[1]{\hypersetup{urlcolor=#1}}       
+
+\newcommand*{\name}{张陈成}
+\newcommand*{\id}{023071910029}
+\newcommand*{\course}{$K$-理论笔记}
+\newcommand*{\assignment}{Sylvester 理论}
+
+\theoremstyle{definition}
+\newtheorem{example}{例}
+
+\theoremstyle{definition}
+\newtheorem{slogan}{原旨}
+
+\theoremstyle{definition}
+\newtheorem{definition}{定义}
+
+\theoremstyle{definition}
+\newtheorem{proposition}{命题}
+
+\theoremstyle{definition}
+\newtheorem{problem}{问题}
+
+\theoremstyle{definition}
+\newtheorem{assumption}{假定}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}
+
+\theoremstyle{remark}
+\newtheorem{remark}{注}
+
+\theoremstyle{remark}
+\newtheorem{lemma}{引理}
+\allowdisplaybreaks
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Sylvester 秩函数}
+
+\begin{proposition}[有限展示模]
+    给定模正合列 $0\to K\to Y\to Z\to 0$, 试回顾以下关于有限展示模之论断.
+    \begin{enumerate}
+        \item 若 $K$ 有限生成, $Z$ 有限生成, 则 $Y$ 有限生成.
+        \item[1'.] 若 $Y$ 有限生成, 则 $Z$ 有限生成, 但 $K$ 未必.
+        \item 若 $Y$ 有限生成, $Z$ 有限展示, 则 $K$ 有限生成.
+        \item 若 $K$ 有限生成, $Y$ 有限展示, 则 $Z$ 有限展示.
+        \item 若 $K$ 有限展示, $Z$ 有限展示, 则 $Y$ 有限展示.
+    \end{enumerate}
+\end{proposition}
+
+\begin{definition}[Sylvester 秩函数]
+    定义环 $R$ 上的 Sylvester 函数为 $\rho: \text{有限展示 $R$-模}\,\to \mathbb R_{\geq 0}$, 满足如下条件.
+    \begin{enumerate}
+        \item 归一化条件: $\rho(R)=1$.
+        \item $\rho$ 可加, 即, $\rho(X\oplus Y)=\rho(X)+\rho(Y)$ 对一切有限展示模成立.
+        \item 对正合列 $X\to Y\to Z\to 0$, 总有 $\rho(Z)\leq \rho(Y)\leq \rho(X)+\rho(Z)$.
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    Sylvester 秩函数衡量有限生成模正合列间的有限展示程度. 置 $X=\mathrm{ker}(Y\to Z)$, 则
+    \begin{enumerate}
+        \item $\rho(X)+\rho(Z)\geq \rho(Y)$ 对应论断: 若 $X$ 与 $Z$ 有限展示, 则 $Y$ 亦然.
+        \item $\rho(Y)\geq\rho(Z)$ 对应论断: 若 $Y$ 有限展示, 则 $Z$ 亦然.
+    \end{enumerate}
+\end{remark}
+
+\begin{proposition}[Sylvester 秩函数的等价定义]
+    环 $R$ 的 Sylvester 秩函数等价定义亦可由
+    \begin{align*}
+        \rho':\text{有限生成投射 $R$ 模间态射}\,\to \mathbb R_{\geq 0}
+    \end{align*}
+    以及以下四条法则等价地给出.
+    \begin{enumerate}
+        \item 归一化条件 $\rho'(\mathrm{id}_R)=1$.
+        \item $\rho'(\mathrm{diag}(f,g))=\rho'(f)+\rho'(g)$.
+        \item $\rho'\begin{pmatrix}
+                      f & h \\0&g
+                  \end{pmatrix}\geq\rho'\begin{pmatrix}
+                      f & 0 \\0&g
+                  \end{pmatrix}=\rho'(f)+\rho'(g)$.
+        \item $\rho'(fg)\leq \min (\rho'(f),\rho'(g))$. 特别地, $\rho'(f)=\rho'(f\varphi)=\rho'(\psi f)$ 若 $\varphi$ 与 $\psi$ 为同构.
+    \end{enumerate}
+    其转换关系如下. 对正合列 $\bullet\overset f\to Q\overset c\to C\to 0$, 有
+    \begin{align*}
+        \rho(C)+\rho'(f)=\rho(Q)=\rho'(\mathrm{id}_Q)
+    \end{align*}
+\end{proposition}
+
+\begin{remark}
+    今后不区分 $\rho$ 与 $\rho'$. 换言之, $\rho$ 同时定义在有限展示模与投射模间态射上.
+\end{remark}
+
+\begin{proposition}[Sylvester 定理]
+    对任意域上同阶数的方阵 $A$ 与 $B$, 总有 $\mathrm{rank}(AB)\geq \mathrm{rank}(A)+\mathrm{rank}(B)-n$.\footnote{线性代数中常用定理.}
+\end{proposition}
+
+\begin{proposition}[Sylvester 定理]
+    对任意映射链 $P''\overset f\to P\overset g\to P'$, 总有 $\rho(gf)\geq \rho(f)+\rho(g)-\rho(\mathrm{id}_P)$.
+    \begin{proof}
+        显然 $\rho(f)+\rho(g)=\rho\begin{pmatrix}
+                f & \\&g
+            \end{pmatrix}\leq \rho \begin{pmatrix}
+                f & \mathrm{id}_P \\&g
+            \end{pmatrix}$. 依照 $\rho(-)$ 的同构不变性, 以及列初等变换
+        \begin{align*}
+            \begin{pmatrix}
+                f & \mathrm{id}_P \\&g
+            \end{pmatrix}
+            \sim
+            \begin{pmatrix}
+                 & \mathrm{id}_P \\-gf&g
+            \end{pmatrix}
+            \sim
+            \begin{pmatrix}
+                 & \mathrm{id}_P \\-gf&g
+            \end{pmatrix}
+            \sim
+            \begin{pmatrix}
+                \mathrm{id}_P \\&gf
+            \end{pmatrix}
+        \end{align*}
+        从而 $\rho(f)+\rho(g)\leq \rho(fg)+\rho(\mathrm{id}_P)$.
+    \end{proof}
+\end{proposition}
+
+\begin{example}
+    给定单 Artin 环 $M_n(D)$\footnote{依照 Artin-Wedderbrun 定理, 半单 Artin 代数形如除环之矩阵环代数之积.}, 则 $\rho(P)=\dfrac{l(P)}n$. 因此单 Artin 环上的秩函数即长度单位化.
+\end{example}
+
+\section{(广义)局部化}
+
+\section{$R$-代数到单 Artin 代数的态射类}
+
+\section{三角范畴及更多}
+\end{document}

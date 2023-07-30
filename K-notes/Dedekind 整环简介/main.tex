@@ -1,0 +1,224 @@
+\documentclass{MainStyle}
+
+\usepackage{amsthm, amsfonts, amsmath, amssymb, quiver, mathrsfs, newclude, tikz-cd, ctex}
+
+% Customise href Colours.
+\usepackage[colorlinks = true,
+            linkcolor = blue,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+
+\newcommand{\changeurlcolor}[1]{\hypersetup{urlcolor=#1}}       
+
+\newcommand*{\name}{张陈成}
+\newcommand*{\id}{023071910029}
+\newcommand*{\course}{$K$-理论笔记}
+\newcommand*{\assignment}{Dedekind 整环简介}
+
+\theoremstyle{definition}
+\newtheorem{example}{例}
+
+\theoremstyle{definition}
+\newtheorem{slogan}{原旨}
+
+\theoremstyle{definition}
+\newtheorem{definition}{定义}
+
+\theoremstyle{definition}
+\newtheorem{proposition}{命题}
+
+\theoremstyle{definition}
+\newtheorem{problem}{问题}
+
+\theoremstyle{definition}
+\newtheorem{assumption}{假定}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}
+
+\theoremstyle{remark}
+\newtheorem{remark}{注}
+
+\theoremstyle{remark}
+\newtheorem{lemma}{引理}
+\allowdisplaybreaks
+
+\begin{document}
+\maketitle
+\tableofcontents
+\section{Dedekind 整环简介}
+
+\begin{definition}[代数数]
+    \textbf{代数数域}为 $\mathbb Q$ 的有限扩域, 从而是单的代数扩域, 故不妨视作 $\mathbb C$ 的子域. \textbf{代数数}为代数数域中的数, 从而是某一 $\mathbb Q[X]$ 中多项式在 $\mathbb C$ 上的根.
+\end{definition}
+
+\begin{definition}[代数整数]
+    记 $\overline{\mathbb Z}\subseteq \mathbb C$ 为 $\mathbb Z[X]$ 中一切整系数首一多项式在 $\mathbb C$ 中的根之并. 由矩阵论知识知其为环, 称作\textbf{代数整环}. 代数数域 $K$ 中的代数整数全体为子环 $\mathcal O_K:=K\cap \overline{\mathbb Z}$.
+\end{definition}
+
+\begin{remark}
+    记代数数之全体为 $\overline{\mathbb Q}$, 即 $\mathbb Q$ 在集合 $\overline{\mathbb Z}$ 上的扩张.
+\end{remark}
+
+\begin{proposition}
+    对 $\overline{\mathbb Q}$ 中子环嵌入 $A\hookrightarrow B$, 有限集 $S:=\{y_i\}_{i\in I_0}\subseteq B$ 由 $A$ 上的代数整数组成, 当且仅当 $A[S]$ 为有限生成 $A$-模.
+    \begin{proof}
+        仅证明 $|S|=1$ 即可. 一方面, 若 $y\in B$ 在 $A$ 上代数整, 则 $A[y]$ 为有限生成 $A$-模. 另一方面, 若 $A[y]$ 为有限生成 $A$-模, 记 $a_1,\ldots, a_m$ 为生成元. 则
+        \begin{align*}
+            y\cdot (a_1,\ldots, a_n)=U\cdot (a_1,\ldots, a_m)\qquad (U\in A^{m\times m}).
+        \end{align*}
+        考虑伴随矩阵知 $\det(y\cdot I_m-U)=0$, 这也直接给出了 $y$ 的首一 $A$-系数零化多项式.
+    \end{proof}
+\end{proposition}
+
+\begin{example}
+    例如对 $n\in \mathbb N_+$, 有代数数域 $K_n:=\mathbb Q[\sqrt{-n}]$. 此处 $r+s\sqrt{-n}\in K_n$ 为代数整数当且仅当
+    \begin{align*}
+        (X-r)^2+s^2\cdot n=X^2-2rX+r^2+s^2\cdot n
+    \end{align*}
+    为整系数多项式. 因此 $\mathcal O_{K_n}=\mathbb Z\left[\dfrac{\sqrt{-n}+1}{2}\right]$ 当且仅当 $n+3\in 4\mathbb Z$; 反之 $\mathcal O_{K_n}=\mathbb Z[\sqrt{-n}]$.
+\end{example}
+
+\begin{definition}[迹, 范数]
+    对任意数域的代数扩张 $E/F$, 任取$x\in E$, 则数乘 $x\cdot :y\mapsto xy$ 是 $E$ 作为 $F$-线性空间的自同构. 称 $x\cdot $ 的迹与范数为 $x$ 在域扩张 $E/F$ 下的\textbf{迹}与\textbf{范数}, 分别记作 $\mathrm{Tr}_{E/F}(x)$ 与 $\mathrm{N}_{E/F}$.
+\end{definition}
+
+\begin{example}
+    $\mathrm{Tr}:E\to F$ 是 $F$-线性空间的同态, $\mathrm{N}:E^\times \to F^\times$ 是乘法群同态.
+\end{example}
+
+\begin{proposition}
+    对代数数域间的扩域 $E/F$, 记 $E$ 到代数闭包 $\overline F$ 的 $F$-不变域嵌入为 $(E,\overline F)_F$, 则任意 $f\in (E,\overline F)_F$ 保持任意 $x\in E$ 的 $F$-极小多项式. 对任意 $x_0\in E$ 使得 $F(x_0)=E$, 极小多项式 $m_{x_0}(X)$ 无重根, 从而在 $E$ 上形如
+    \begin{align*}
+        m_{x_0}(X)=\prod_{0\leq i\leq \deg m_{x_0}-1}(X-x_i).
+    \end{align*}
+    因此 $(E,\overline F)_F=\{x_0\mapsto x_i\}_{0\leq i\leq \deg m_{x_0}-1}$, 大小为 $n$. 进一步地,
+    \begin{align*}
+        \mathrm{Tr}_{E/F}:x\mapsto \sum_{f\in (E,\overline F)_F} f(\alpha),\qquad \mathrm{N}_{E/F}:x\mapsto \prod_{f\in (E,\overline F)_F} f(\alpha).
+    \end{align*}
+\end{proposition}
+
+\begin{proposition}[传递公式]
+    对数域的扩张 $E/M/F$, 有 $\mathrm{Tr}_{E/F}=\mathrm{Tr}_{E/M}\circ \mathrm{Tr}_{M/F}$ 与 $\mathrm{N}_{E/F}=\mathrm{N}_{E/M}\circ \mathrm{N}_{M/F}$.
+\end{proposition}
+
+\begin{definition}[判别式]\label{discriminant}
+    对数域扩张 $E/F$ 与有限集 $\{x_i\in E\}_{1\leq i\leq n}$, 定义\textbf{判别式}为 $\det (\mathrm{Tr}_{E/F}(x_ix_j))$.
+\end{definition}
+
+\begin{remark}\label{discriminant-est-square}
+    对 $[E:F]\leq n$, 上述判别式为
+    \begin{align*}
+        \det \left((f_ix_j)_{f_i\in (L,\overline K)_K, 1\leq j\leq n}^T\cdot (f_ix_j)_{f_i\in (L,\overline K)_K, 1\leq j\leq n}\right).
+    \end{align*}
+    特别地, 判别式非零当且仅当 $\{x_i\}_{1\leq i\leq n}$ 为 $F$-线性无关的.
+\end{remark}
+
+\begin{definition}[域的判别式]
+    给定代数数域 $E/\mathbb Q$ 与一组 $\mathbb Z$-基 $S$. 在定义 \ref{discriminant} 中置 $F=\mathbb Q$, $S=\{x_i\}_{1\leq i\leq [E:\mathbb Q]}$, 记作 $\Delta_F$.
+\end{definition}
+
+\begin{proposition}
+    记 $\Delta _F$ 为数域 $F$ 的判别式, 则 $\Delta_F\equiv 0,1\pmod 4$.
+    \begin{proof}
+        记 $[F:\mathbb Q]=d$. 考虑定义 \ref{discriminant-est-square} 记平方根 $(\pm)\sqrt{\Delta_F}=\sum_{\tau \in S_d}\prod_{f\in (F,\mathbb C)_{\mathbb Q},x_i\in S}(f_i x_i)=P-N$. 其中 $P$ ($N$) 为求和式中的正(负)项. 由于 $P+N$ 与 $PN$ 在一切 $f_i\in (F,\mathbb C)_{\mathbb Q}$ 下不动, 从而属于 $\mathbb Q$. 再因 $P$ 与 $N$ 均为代数整数, 从而属于 $\mathbb Z$. 显然
+        \begin{align*}
+            \Delta_F\equiv (P-N)^2\equiv (P+N)^2\pmod 4.
+        \end{align*}
+        而 $(P+N)^2$ 是整数的平方.
+    \end{proof}
+\end{proposition}
+
+\begin{proposition}\label{ideal-dedekind}
+    $\mathcal O_K$ 的任意非零理想是秩为 $n$ 的自由交换群, 其中 $n=[K:\mathbb Q]$.
+    \begin{proof}
+        取 $K/\mathbb Q$ 基 $\{\alpha_i\}_{1\leq i\leq n}$, 不妨设 $\alpha_i\in \mathcal O_K$. 记 $M:=\bigoplus \mathbb Z\alpha_i$. 定义对偶基
+        \begin{align*}
+            \alpha_i^\vee :=\mathrm{Tr}_{K/\mathbb Q}(\alpha_i\cdot -)\in \mathrm{Hom}_{\mathbb Q}(K,\mathbb Q).
+        \end{align*}
+        从而(注意到扩张可分)
+        \begin{align*}
+            M^\vee :=\bigoplus \mathbb Z\alpha_i^\vee \simeq \{x\in K\mid \mathrm{Tr}_{K/\mathbb Q}(\alpha_ix)\in \mathbb Z,\forall i\}.
+        \end{align*}
+        遂有 $M\subseteq \mathcal O_K\subseteq M^\vee$. 取理想 $I\subseteq \mathcal O_K$, 则任取 $ x\in I$, 有 $\mathrm{N}_{K/\mathbb Q}(x)\mathcal O_K\subseteq  I$. 因此
+        \begin{align*}
+            \mathrm{N}_{K/\mathbb Q}(x)M\subseteq  I\subseteq \mathcal O_K\subseteq M^\vee.
+        \end{align*}
+        注意到
+        \begin{align*}
+            \left|\dfrac{M^\vee}{\mathrm{N}_{K/\mathbb Q}(x)M}\right|=\det (\mathrm{Tr}_{K/\mathbb Q}(\alpha_i\alpha_j))\cdot \mathrm{N}_{K/\mathbb Q} (x)^n<\infty.
+        \end{align*}
+        从而 $\mathrm{rank}_{\mathbb Z}(I)=\mathrm{rank}_{\mathbb Z}(M)=n$.
+    \end{proof}
+\end{proposition}
+
+\begin{definition}[Dedekind 环的等价定义]\label{Dedekind}
+    对整环 $R$, 以下叙述等价.
+    \begin{enumerate}
+        \item[1] 环遗传. 换言之, 投射模的子模为投射模.
+              \begin{enumerate}
+                  \item[2-a] Noether 环, 且所有极大理想处的局部化环为离散赋值环.
+                  \item[2-b] Noether 环, 且所有极大理想处的局部化环为主理想整环.
+              \end{enumerate}
+        \item[3] 所有理想作为 $R$ 模可逆. 即, 对任意理想 $  I\subseteq R$, 存在 $  J\subseteq \mathrm{Frac}(R)$ 使得 $I\otimes _RJ\simeq IJ\simeq R$. 此处取
+              \begin{align*}
+                  J=I^\ast :=\mathrm{Hom}_R(I,R)\simeq \{x\in \mathrm{Frac}(R)\mid xI\subseteq R\}.
+              \end{align*}
+              \begin{remark}
+                  一般情形下, $I\otimes_R J\simeq IJ$ 为同构, 若 $I$ 或 $J$ 平坦.
+              \end{remark}
+        \item[4] 整数闭, Noether 但非 Artin (换言之, Krull 维度为 $1$, 非零素理想极大).
+        \item[5] Noether 且 Prüfer (平坦模等价于无扰模).
+              \begin{enumerate}
+                  \item[6-a] 所有真理想为素理想之积.
+                  \item[6-b] 所有真理想为极大理想之积.
+                  \item[6-c] 所有真理想为素理想之积, 且分解唯一.
+                  \item[6-d] 所有真理想为极大理想之积, 且分解唯一.
+              \end{enumerate}
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    根据定义 \ref{Dedekind} 第一条以及命题 \ref{ideal-dedekind}, 任何代数整数环 $\mathcal O_K$ 是 Dedekind 整环.
+\end{remark}
+
+\begin{definition}[分式理想与逆]\label{ideal-inv}
+    若 $\mathcal O$ 为 Dedekind 整环, 其分式理想为有限生成的 $\mathrm{frac}(\mathcal O)$-子模. 对任意定义分式理想的逆为
+    \begin{align*}
+        \mathfrak a^{-1}:=(\mathcal O:\mathfrak a):=\{x\in \mathrm{frac}(\mathcal O)\mid x\cdot \mathfrak a\subseteq \mathcal O\}.
+    \end{align*}
+    可定义分式理想全体为所有 $\mathcal O$ 的理想在 $(-)^{-1}$ 下的完备化.
+\end{definition}
+
+\begin{definition}[Dedekind 整环的分式理想群]
+    取 Dedekind 整环 $\mathcal O$, 则所有分式理想关于单位元 $(1)=\mathcal O$ 与逆运算 $(-)^{-1}$ 构成乘法交换群, 记作分式理想群为 $\mathcal I_K$.
+\end{definition}
+
+\begin{remark}
+    $\mathcal I_K$ 的良定义性基于定义 \ref{Dedekind} 的第六条(c).
+\end{remark}
+
+\begin{proposition}
+    给定 Dedekind 整环 $R$, 有限生成的投射模等价于理想的有限直和.
+    \begin{proof}
+        先证明理想为投射模. 若 $I=(x)$ 为主理想, 则 $I\simeq R, x\mapsto1$. 若不然, 任取非零 $x\in I$, 有分解
+        \begin{align*}
+            I= \prod \mathfrak p_i^{e_i},\quad (x)=\prod \mathfrak p_i^{f_i}\quad (I\mid (x)).
+        \end{align*}
+        由于存在 $y$ 使得 $v_{\mathfrak p_i}(y)=f_i-e_i\geq 0$, 故 $(x,y)=I$, 且有互素关系 $\gcd((x),(y))=I$. 此时存在 $a,b\in I^{-1}$ 使得 $ax+by=1$. 注意到(复合的)恒等映射
+        \begin{align*}
+            \mathcal O_K^2\to I\to \mathcal O_K^2,\quad (m,n)\mapsto (xm+yn)\mapsto (m,n),
+        \end{align*}
+        从而 $I$ 为直和项. 反之, 投射模等价于自由模, 从而为理想的直和.
+    \end{proof}
+\end{proposition}
+
+\begin{proposition}
+    对 Dedekind 整环 $\mathcal O$ 而言, 理想 $\mathfrak a$ 的对偶模与逆模相同, 即,
+    \begin{align*}
+        (\mathcal O:\mathfrak a)=\mathfrak a^{-1}=\mathrm{Hom}_{\mathcal O}(\mathfrak a,\mathcal O).
+    \end{align*}
+\end{proposition}
+
+\end{document}

@@ -1,0 +1,125 @@
+\documentclass{MainStyle}
+
+\usepackage{amsthm, amsfonts, amsmath, amssymb, quiver, mathrsfs, newclude, tikz-cd, ctex}
+
+% Customise href Colours.
+\usepackage[colorlinks = true,
+            linkcolor = blue,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+
+\newcommand{\changeurlcolor}[1]{\hypersetup{urlcolor=#1}}       
+
+\newcommand*{\name}{张陈成}
+\newcommand*{\id}{023071910029}
+\newcommand*{\course}{$K$-理论笔记}
+\newcommand*{\assignment}{Banach 空间范畴}
+
+\theoremstyle{definition}
+\newtheorem{example}{例}
+
+\theoremstyle{definition}
+\newtheorem{slogan}{原旨}
+
+\theoremstyle{definition}
+\newtheorem{definition}{定义}
+
+\theoremstyle{definition}
+\newtheorem{proposition}{命题}
+
+\theoremstyle{definition}
+\newtheorem{problem}{问题}
+
+\theoremstyle{definition}
+\newtheorem{assumption}{假定}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}
+
+\theoremstyle{remark}
+\newtheorem{remark}{注}
+
+\theoremstyle{remark}
+\newtheorem{lemma}{引理}
+\allowdisplaybreaks
+
+\begin{document}
+\maketitle
+\tableofcontents
+\section{Banach 空间的范畴化刻画}
+
+\begin{definition}[Banach 空间]
+    给定完备域 $\mathbb F$, Banach 空间即完备赋范线性空间. 以下假设 $\mathbb F$ 给定.
+\end{definition}
+
+\begin{definition}[范畴 $\mathrm{Ban}_\infty$ 与 $\mathrm{Ban}_1$]
+    定义范畴 $\mathrm{Ban}_\infty$ 与 $\mathrm{Ban}_1$ 中对象均为 Banach 空间. 其中 $\mathrm{Ban}_\infty$ 中态射为连续线性映射(范数有限); $\mathrm{Ban}_1$ 中态射为压缩线性映射(范数不超过 $1$).
+\end{definition}
+
+\begin{proposition}
+    $\mathrm{Ban}_\infty$ 为加法范畴, 但非 Abel 范畴. $\mathrm{Ban}_\infty$ 亦然.
+    \begin{proof}
+        下仅讨论 $\mathrm{Ban}_\infty$. 若 $\mathrm{Ban}_\infty$ 为 Abel 范畴, 则任意 $\mathrm{Ban}_\infty$ 中态射 $X\overset f\to Y$ 补全为正合列
+        \begin{align*}
+            0\to \mathrm{ker}(f)\to X\to Y\to \mathrm{coker}(f)\to 0.
+        \end{align*}
+        此处 $\mathrm{ker}(f)=f^{-1}\{0\}$ 为 Banach 空间 $X$ 的闭子空间, 从而为 Banach 空间; 但 $\mathrm{coker}$ 未必完备, 例如
+        \begin{align*}
+            f:\ell^1(\mathbb C)\to \ell^1(\mathbb C),\quad \{x_n\}_{n\geq 1}\mapsto \{2^{-n}\cdot x_n\}
+        \end{align*}
+        是 Banach 空间中非满的稠密态射, 从而 $\mathrm{im}(f)$ 不完备. 而 Abel 范畴中 $\mathrm{im}(f)\simeq \mathrm{ker}(\mathrm{coker}(f))$, 因此 $\mathrm{coker}(f)$ 必不为 Banach 空间.
+    \end{proof}
+\end{proposition}
+
+\section{张量积}
+
+\begin{definition}[张量积及其范数]
+    取 $X,Y\in \mathrm{Ban}_\infty$, 依线性空间之定义记张量积 $X\otimes Y$. 定义 $u\in X\otimes Y$ 的范数为
+    \begin{align*}
+        \|u\|:=\inf\sum_{\text{有限和}}\|x_i\|\cdot \|y_i\|\quad \left(u=\sum_{\text{有限和}} x_i\otimes y_i\right).
+    \end{align*}
+    记 $X\otimes Y$ 在上述范数下的完备化空间为 $X\hat \otimes Y$.
+\end{definition}
+
+\begin{remark}
+    嵌入 $X\hat \otimes Y\overset \iota \hookrightarrow \mathrm{Hom}(X^\ast, Y)$ 定义如下:
+    \begin{align*}
+        \iota: \sum x_i\otimes y_i\mapsto \left[f\mapsto \sum f(x_i)y\right].
+    \end{align*}
+    该嵌入保持范数, 实际上有
+    \begin{align*}
+        \left\|\sum x_i\otimes y_i\right\|_{X\hat \otimes Y}=\sup_{\|f\|,\|g\|\leq 1}\left|\sum f(x_i) \cdot g(y_i)\right|=\sup_{\|f\|\leq 1}\left\|\sum f(x_i)y_i\right\|_X.
+    \end{align*}
+    类似地, 有嵌入 $X\hat\otimes Y\hookrightarrow \mathrm{Hom}(Y^\ast, X)$.
+\end{remark}
+
+\begin{proposition}[张量积的泛性质]
+    对有界双线性映射 $\varphi :X\times Y\to Z$, 存在唯一的 $X\hat \otimes Y$ 使得以下论断成立.
+    \begin{enumerate}
+        \item 存在典范态射 $\pi:X\times Y\to X\hat\otimes Y$ 与 $\hat \varphi:X\hat\otimes Y\to Z$ 使得有交换图 $\hat\varphi\circ \pi=\varphi$;
+        \item $\|\hat \varphi\|\leq \|\varphi\|$. 故上述泛性质对 $\mathrm{Ban}_1$ 同样适用.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proposition}[$Y\hat\otimes-$ 与 $\mathrm{Hom}(Y,-)$ 的伴随]
+    $\mathrm{Ban}_\infty$ (相应地, $\mathrm{Ban}_1$) 中的 Tensor-Hom 伴随指以下自然同构
+    \begin{align*}
+        \mathrm{Hom}(Y\hat \otimes X,Z)\simeq \mathrm{Hom}(X,\mathrm{Hom}(Y,Z)).
+    \end{align*}
+\end{proposition}
+
+
+\begin{example}[$\ell^p(-)$ 函子]
+    对给定的 $1\leq p\leq \infty$, 定义 $\ell^p(-)$ 为 $\mathrm{Ban}_\infty$ (相应地, $\mathrm{Ban}_1$) 到自身的函子. 具体地,
+    \begin{align*}
+        \ell^p(X)\subseteq \prod_{i\in \mathbb N} X, \quad \|(x_i)_{i\in \mathbb N}\|_{\ell^p(X)}=\|(\|x_i\|_{X})_{i\in \mathbb N}\|_{\ell^p}<\infty.
+    \end{align*}
+    实际上, $\ell^p(-)\simeq -\hat\otimes \ell^p$ 是函子间同构\footnote{将 $\ell^p(-)$ 视作函子 $\ell^p_n(-):X\to X^n$ 的极限, 显然 $\ell^p_1(-)\hookrightarrow \ell^p_2\hookrightarrow \cdots $ 与左伴随函子可换}.\par
+    依照 Tensor-Hom 伴随, $\ell^\infty(X^\ast)\simeq (\ell^1(X))^\ast$ 对一切 $X$ 自然. 类似地定义 $c^0$ 为收敛至 $0$ 的序列, 类似地定义 $c^0(-)$, 则有
+    \begin{align*}
+        \ell^\infty(X^{\ast\ast})\simeq (\ell^1(X^\ast))^\ast\simeq (c^0(X))^{\ast\ast}.
+    \end{align*}
+\end{example}
+
+\end{document}

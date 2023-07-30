@@ -1,0 +1,236 @@
+\documentclass{MainStyle}
+
+\usepackage{amsthm, amsfonts, amsmath, amssymb, quiver, mathrsfs, newclude, tikz-cd, ctex}
+
+% Customise href Colours.
+\usepackage[colorlinks = true,
+            linkcolor = blue,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+
+\newcommand{\changeurlcolor}[1]{\hypersetup{urlcolor=#1}}       
+
+\newcommand*{\name}{张陈成}
+\newcommand*{\id}{023071910029}
+\newcommand*{\course}{$K$-理论笔记}
+\newcommand*{\assignment}{Dedekind 整环的算数信息}
+
+\theoremstyle{definition}
+\newtheorem{example}{例}
+
+\theoremstyle{definition}
+\newtheorem{slogan}{原旨}
+
+\theoremstyle{definition}
+\newtheorem{definition}{定义}
+
+\theoremstyle{definition}
+\newtheorem{proposition}{命题}
+
+\theoremstyle{definition}
+\newtheorem{problem}{问题}
+
+\theoremstyle{definition}
+\newtheorem{assumption}{假定}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}
+
+\theoremstyle{remark}
+\newtheorem{remark}{注}
+
+\theoremstyle{remark}
+\newtheorem{lemma}{引理}
+\allowdisplaybreaks
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Dedekind 整环的 \texorpdfstring{$K_0$}{} 群}
+
+\begin{theorem}
+    Dedekind 整环 $\mathcal O$ 的 $K_0$ 群为 $\mathbb Z\oplus \mathrm{Pic}(\mathcal O)$.
+    \begin{proof}
+        取分式理想 $I$ 与 $J$, 下证明 $I\oplus J\simeq \mathcal O\oplus IJ$. 取 $b\in J$ 使得 $bJ^{-1}$ 为 $\mathcal O$ 的理想, 记唯一分解
+        \begin{align*}
+            bJ^{-1}=\prod_{1\leq i\leq n}\mathfrak p_i^{n_i}\quad (\mathfrak p_i\in \mathrm{Spec}(\mathcal O), n_i\geq 1).
+        \end{align*}
+        再取 $\displaystyle a=\sum_{1\leq i\leq n}a_i$, 其中
+        \begin{align*}
+            a_i\in I\cdot \mathfrak p_1\cdots \mathfrak p_{i-1}\cdot \mathfrak p_{i+1}\cdots \mathfrak p_n.
+        \end{align*}
+        从而 $a_i\cdot I^{-1}\subseteq \mathfrak p_j$ 当且仅当 $i\neq j$; 反之 $a_i\cdot I^{-1}\not \subseteq \mathfrak p_i$. 此时 $aI^{-1}+bJ^{-1}=\mathcal O$. 取 $c\in I$ 与 $d\in J$ 使得 $ac+bd=1$. 考虑同构
+        \[\begin{tikzcd}
+                {I\oplus J} && {\mathcal O\oplus IJ} \\
+                {(x,y)} && {(cx+dy,ay-bx)}
+                \arrow["{\binom{\,\,\,c\,\,\,d}{-b\,\,\,a}}", from=1-1, to=1-3]
+                \arrow["\simeq"', draw=none, from=1-1, to=1-3]
+                \arrow[maps to, from=2-1, to=2-3]
+            \end{tikzcd}\quad (c\in I,d\in J),\]
+        是以得证. 归纳知,
+        \begin{align*}
+            I_1\oplus I_2\oplus \cdots \oplus I_n= \mathcal O^{n-1}\oplus I_1I_2\cdots I_n.
+        \end{align*}
+        下仅需证明对分式理想 $I_1$ 与 $I_2$, $\mathcal O^n\oplus I_1\simeq \mathcal O^n\oplus I_2$ 当且仅当 $I_1=I_2$. 考虑
+        \begin{align*}
+            \bigwedge^{n+1}(\underset{n\text{ 个}}{\underbrace{\mathcal O\oplus \cdots \oplus \mathcal O}}\oplus I_i)\simeq \left(\bigoplus_{i_1+\cdots i_{n+1}=n+1} \bigwedge^{n_1}\mathcal O\otimes_{\mathcal O}\cdots \otimes_{\mathcal O} \bigwedge ^{i_{n}}\mathcal O\right)\otimes_{\mathcal O} \left(\bigwedge ^{i_{n+1}}I_i\right).
+        \end{align*}
+        对 $\mathcal O$ 秩 $1$ 的投射模 $P$, 有 $\bigwedge^0 \mathcal P=\mathcal O,$ $\bigwedge^1 \mathcal P=P$, 以及 $\bigwedge^2 \mathcal P=0$. 因此上式右侧为 $I_i$. 因此, Dedekind 整环上任意秩为 $n$ 的投射模形如 $\mathcal O^{n-1}\oplus I$, 其中 $I$ 是分式理想.
+    \end{proof}
+\end{theorem}
+
+\begin{definition}[理想类群]
+    代数数域 $K$ 给出以下(群)正合列
+    % https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMSJdLFsxLDAsIlxcbWF0aGNhbCBPX0teXFx0aW1lcyAiXSxbMiwwLCJLXlxcdGltZXMgIl0sWzQsMCwiXFxtYXRoY2FsIElfSyJdLFs1LDAsIlxcbWF0aHJte0NsfV9LIl0sWzYsMCwiMSJdLFsxLDEsImQiXSxbMiwxLCJcXGRmcmFjIGQxIl0sWzUsMSwiSVxcY2RvdCBcXG1hdGhybXtQSUQnc30iXSxbNCwxLCJJIl0sWzAsMV0sWzEsMl0sWzIsMywieFxcbWFwc3RvIHhcXGNkb3QgXFxtYXRoY2FsIE9fSyJdLFs2LDcsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbMyw0XSxbNCw1XSxbOSw4LCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV1d
+    \[\begin{tikzcd}[row sep=small]
+            1 & {\mathcal O_K^\times } & {K^\times } && {\mathcal I_K} & {\mathrm{Cl}_K} & 1 \\
+            & d & {\dfrac d1} && I & {I\cdot \mathrm{PID's}.}
+            \arrow[from=1-1, to=1-2]
+            \arrow[from=1-2, to=1-3]
+            \arrow["{x\mapsto x\cdot \mathcal O_K}", from=1-3, to=1-5]
+            \arrow[maps to, from=2-2, to=2-3]
+            \arrow[from=1-5, to=1-6]
+            \arrow[from=1-6, to=1-7]
+            \arrow[maps to, from=2-5, to=2-6]
+        \end{tikzcd}\]
+    其中理想类群 $\mathrm{Cl}_K$ 作为 $\mathcal I_K$ 的商群, 商关系为乘以一个(非零)主理想整环.
+\end{definition}
+
+\begin{proposition}[局部化理想类群]
+    Dedekind 整环的局部化仍为 Dedekind 整环.
+    \begin{proof}
+        Dedekind 整环商的局部化保持张量积, 正合列, 以及无扰模, 从而局部化环的无扰模仍是平坦的. 同时局部化保持有限生成模, 从而保持 Noether 环. 由以上两点, Dedekind 整环的局部化仍是 Dedekind 整环.
+    \end{proof}
+\end{proposition}
+
+\begin{example}
+    局部化 Dedekind 整环 $\mathcal O_{K,S}$ 的单位群 $\mathcal O_{K,S}^\times$ 与理想类群 $\mathrm{Cl}_{K,S}$ 满足以下正合列
+    % https://q.uiver.app/#q=WzAsMTUsWzAsMSwiMSJdLFsyLDEsIlxcbWF0aGNhbCBPX3tLLFN9XlxcdGltZXMgIl0sWzEsMSwiXFxtYXRoY2FsIE9fS15cXHRpbWVzICJdLFszLDEsIlxcbWF0aGJiIFpee3xcXHtcXG1hdGhmcmFrIHBcXG1pZCBcXG1hdGhmcmFrIHBcXHN1YnNldGVxIFNcXH18fSJdLFs0LDEsIlxcbWF0aHJte0NsfV97S30iXSxbNSwxLCJcXG1hdGhybXtDbH1fe0ssU30iXSxbNiwxLCIxIl0sWzEsMCwieCJdLFsyLDAsIlxcZGZyYWMgeDEiXSxbMiwyLCJcXGRmcmFjIHhzIl0sWzMsMiwiKHZfXFxtYXRoZnJhayBwKHMpKV97XFxtYXRoZnJhayBwXFxzdWJzZXRlcSBTfSJdLFszLDAsIihuX3tcXG1hdGhmcmFrIHB9KV97XFxtYXRoZnJhayBwXFxzdWJzZXRlcSBTfSJdLFs0LDAsIlxcb3ZlcmxpbmV7XFxwcm9kX3tcXG1hdGhmcmFrIHBcXHN1YnNldGVxIFN9IFxcbWF0aGZyYWsgcF57bl97XFxtYXRoZnJhayBwfX19Il0sWzQsMiwiXFxvdmVybGluZSBJIl0sWzUsMiwiXFxvdmVybGluZXtJXFxjZG90IFxccHJvZF97XFxtYXRoZnJhayBwXFxzdWJzZXRlcSBTfSBcXG1hdGhmcmFrIHBee25fe1xcbWF0aGZyYWsgcH19fSJdLFswLDJdLFsyLDFdLFsxLDNdLFszLDRdLFs0LDVdLFs1LDZdLFs3LDgsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Im1hcHMgdG8ifX19XSxbOSwxMCwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFsxMSwxMiwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dLFsxMywxNCwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoibWFwcyB0byJ9fX1dXQ==
+    \[\begin{tikzcd}[row sep=small]
+            & x & {\dfrac x1} & {(n_{\mathfrak p})_{\mathfrak p\subseteq S}} & {\overline{\prod_{\mathfrak p\subseteq S} \mathfrak p^{n_{\mathfrak p}}}} \\
+            1 & {\mathcal O_K^\times } & {\mathcal O_{K,S}^\times } & {\mathbb Z^{|\{\mathfrak p\mid \mathfrak p\subseteq S\}|}} & {\mathrm{Cl}_{K}} & {\mathrm{Cl}_{K,S}} & 1 \\
+            && {\dfrac xs} & {(v_\mathfrak p(s))_{\mathfrak p\subseteq S}} & {\overline I} & {\overline{I\cdot \prod_{\mathfrak p\subseteq S} \mathfrak p^{n_{\mathfrak p}}}}
+            \arrow[from=2-1, to=2-2]
+            \arrow[from=2-2, to=2-3]
+            \arrow[from=2-3, to=2-4]
+            \arrow[from=2-4, to=2-5]
+            \arrow[from=2-5, to=2-6]
+            \arrow[from=2-6, to=2-7]
+            \arrow[maps to, from=1-2, to=1-3]
+            \arrow[maps to, from=3-3, to=3-4]
+            \arrow[maps to, from=1-4, to=1-5]
+            \arrow[maps to, from=3-5, to=3-6]
+        \end{tikzcd}.\]
+    其中正合性说明如下.
+    \begin{enumerate}
+        \item $\mathcal O_{K,S}^\times=\{x\in K\mid v_{\mathfrak p}(x)=0, \mathfrak p\not\subseteq S\}$ 处正合性显然.
+        \item 注意到 $\mathbb Z^{(-)}\to \mathrm{Cl}_K$ 之核恰为形如 $(x/s)$ 的主分式理想, 即 $\mathcal O^\times _K\to \mathbb Z^{(-)}$ 的像, 故 $\mathbb Z^{(-)}$ 处正合.
+        \item $\mathrm{Cl}_K\to \mathrm{Cl}_{K,S}$ 之核无非 $\{\mathfrak p\}_{\mathfrak p\subseteq S}$ 给出的非主理想, 即 $\mathbb Z^{(-)}$ 的像, 从而 $\mathrm{Cl}_K$ 处正合.
+        \item 由于 $\mathrm{Cl}_K\to \mathrm{Cl}_{K,S}$ 由等价关系之延拓给出, 从而为满射, 故 $\mathrm{Cl}_{K,S}$ 处正合.
+    \end{enumerate}
+\end{example}
+
+\begin{theorem}[Dirichlet 单位定理]\label{Dirichlet-unit}
+    考虑共轭作用 $f\mapsto \overline f$ 在域嵌入映射集 $(K,\mathbb C)_{\mathbb Q}$ 上的作用. 记 $r$ 与 $s$ 分别为大小为 $1$ 与 $2$ 的轨道数量. 则 $\mathcal O_K^\times\simeq \mu_K\times \mathbb Z^{r+s-1}$.
+\end{theorem}
+
+\begin{theorem}[Hermite–Minkowski]
+    对任意 $M\in \mathbb R_+$, 判别式小于 $M$ 的数域有限(同构意义下).
+\end{theorem}
+
+\begin{theorem}[Minkowski 界]\label{Bound-Minkowski}
+    给定数域 $F$, 则 $\sqrt{\Delta_F}\geq\dfrac{n^n}{n!}\cdot \left(\dfrac{\pi}{4}\right)^s\geq \dfrac{n^n}{n!}\cdot \left(\dfrac{\sqrt \pi}{2}\right)^{[F:\mathbb Q]}$.
+\end{theorem}
+
+\begin{remark}
+    因此类数有限.
+\end{remark}
+
+\begin{proposition}
+    类群到分式群有典范嵌入 $0\to \mathrm{Cl}(R)\overset f\to \mathrm{Pic}(R)\to \mathrm{Pic}(T(R))\to 0$. $f$ 为同构当且仅当所有素理想有限生成.
+\end{proposition}
+
+$\textcolor{red}{\text{未完待续}}$.
+
+\section{Dedekind 整环的 \texorpdfstring{$K_1$}{} 群(Dirichlet 单位定理之证明)}
+
+$\textcolor{red}{\text{未完待续}}$.
+
+\section{Dedekind 整环的 \texorpdfstring{$K$}{} 群杂谈}
+
+\section{Dedekind 整环的算数信息}
+
+\begin{definition}[理想的范数]
+    分式理想的范数为乘法群同态 $N:\mathrm{Pic}(\mathcal O_F)\to \mathbb Q_{>0}$. 其中
+    \begin{align*}
+        N(\mathfrak a)=[\mathcal O_F:\mathfrak a].
+    \end{align*}
+    特别地, $N((a))=\mathrm N_{F/\mathbb Q}(a)$. 此后不区分之.
+\end{definition}
+
+\begin{remark}
+    定理 \ref{Bound-Minkowski} 表明对任意 $x\in \mathfrak a$, 总有 $|\mathrm N(x)|\leq \left(\dfrac{2}{\pi }\right)^s\sqrt{|\Delta_F|}\cdot N(\mathfrak a)$.
+\end{remark}
+
+\begin{definition}
+    给定数域扩张 $F/\mathbb Q$, 定义 $\{z\in \mathbb C\mid \mathrm{Re}(z)>1\}$ 上的亚纯函数
+    \begin{align*}
+        \zeta_F(z):=\prod_{\mathfrak p\subseteq \mathcal O_F} \dfrac{1}{1-N(\mathfrak p)^{-z}}=\sum_{\mathfrak a\subseteq \mathcal O_F}\dfrac{1}{N(\mathfrak p)^z}.
+    \end{align*}
+\end{definition}
+
+\begin{remark}
+    特别地, 置 $F=\mathbb Q$, 则有通常的 Riemann-$\zeta$ 函数 $\displaystyle\zeta (z)=\sum_{n\geq 1}\dfrac{1}{n^z}=\prod_{p\text{ 为质数}}\dfrac{1}{1-p^{-z}}$.
+\end{remark}
+
+\begin{theorem}[反射公式]\label{reflect}
+    记 $d=[F:\mathbb Q]=r+2s$, 则有反射公式
+    \begin{align*}
+        \zeta_F(1-z)=\sqrt{|\Delta_{F}|}^{2s-1}\cdot \cos^{r+s}\dfrac{\pi z}{2}\cdot \sin^s\dfrac{\pi z}{2}\cdot (2(2\pi)^{-z}\Gamma(z))^d\cdot \zeta_F(z).
+    \end{align*}
+\end{theorem}
+
+\begin{theorem}[Siegel-Klingen]
+    对正整数 $n$, $\zeta_F(-n)\in \mathbb Q$.
+\end{theorem}
+
+\begin{theorem}\label{simple-pole}
+    $\zeta_F(z)$ 在 $\mathrm{Re}(s)\geq 1$ 时无零点, 仅有的极点为 $s=1$ 处的单极点.
+\end{theorem}
+
+\begin{proposition}[交重数定理]
+    记 $\mu_n$ 为 $\zeta_F(z)$ 在 $z=-n$ 处的零点重数. 依照定理 \ref{reflect} 与定理 \ref{simple-pole} 有
+    \begin{align*}
+        \mu_n=\left\{\begin{matrix}
+            r+s-1 &  & n=0,                   \\
+            s     &  & n\geq 1\text{ 为奇数}, \\
+            r+s   &  & n\geq 2\text{ 为偶数}.
+        \end{matrix}\right.
+    \end{align*}
+\end{proposition}
+
+\begin{theorem}[$K_0$-群的算数信息]
+    对数域 $F$, 总有 $K_0(\mathcal O_F)\simeq \mathbb Z\oplus \mathrm{Pic}(\mathcal O_F)$. 其中 $\mathrm{Pic}(\mathcal O_F)=\mathrm{Cl}(\mathcal O_F)$.
+\end{theorem}
+
+\begin{theorem}[$K_1$-群的算数信息]
+    结合定理 \ref{Dirichlet-unit}, 有
+    \begin{align*}
+        K_1(\mathcal O_F)\simeq \mathcal O_F^\times \simeq \mathbb Z^{r+s-1}\oplus \mu_F.
+    \end{align*}
+\end{theorem}
+
+\begin{theorem}[Bott 周期]
+    记 $r_n$ 为自由群 $\mathbb Q\otimes_{\mathbb Z} K_n(\mathcal O_F)$ 的秩, 则有如下 $4$-周期的表格
+    \begin{center}
+        \begin{tabular}{ccccccccccccc}
+            $n$   & $0$ & $1$        & $2$ & $3$        & $4$ & $5$        & $6$ & $\cdots $ & $2k$ & $4k+3$        & $4k+5$        & $\cdots$ \\
+            $r_n$ & $1$ & $\mu_F(0)$ & $0$ & $\mu_F(1)$ & $0$ & $\mu_F(2)$ & $0$ & $\cdots$  & $0$  & $\mu_F(2k+1)$ & $\mu_F(2k+2)$ & $\cdots$ \\
+            $=$   & $1$ & $r+s-1$    & $0$ & $s$        & $0$ & $r+s$      & $0$ & $\cdots$  & $0$  & $s$           & $r+s$         & $\cdots$
+        \end{tabular}
+    \end{center}
+\end{theorem}
+
+\end{document}

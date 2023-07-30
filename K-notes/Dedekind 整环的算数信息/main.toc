@@ -1,0 +1,4 @@
+\contentsline {section}{\numberline {1}Dedekind 整环的 $K_0$ 群}{1}{section.1}%
+\contentsline {section}{\numberline {2}Dedekind 整环的 $K_1$ 群(Dirichlet 单位定理之证明)}{2}{section.2}%
+\contentsline {section}{\numberline {3}Dedekind 整环的 $K$ 群杂谈}{2}{section.3}%
+\contentsline {section}{\numberline {4}Dedekind 整环的算数信息}{2}{section.4}%

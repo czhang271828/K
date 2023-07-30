@@ -1,0 +1,218 @@
+\documentclass{MainStyle}
+
+\usepackage{amsthm, amsfonts, amsmath, amssymb, quiver, mathrsfs, newclude, tikz-cd, ctex}
+
+% Customise href Colours.
+\usepackage[colorlinks = true,
+            linkcolor = blue,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+
+\newcommand{\changeurlcolor}[1]{\hypersetup{urlcolor=#1}}       
+
+\newcommand*{\name}{张陈成}
+\newcommand*{\id}{023071910029}
+\newcommand*{\course}{$K$-理论笔记}
+\newcommand*{\assignment}{$C^\ast$ 代数简介}
+
+\theoremstyle{definition}
+\newtheorem{example}{例}
+
+\theoremstyle{definition}
+\newtheorem{slogan}{原旨}
+
+\theoremstyle{definition}
+\newtheorem{definition}{定义}
+
+\theoremstyle{definition}
+\newtheorem{proposition}{命题}
+
+\theoremstyle{definition}
+\newtheorem{problem}{问题}
+
+\theoremstyle{definition}
+\newtheorem{assumption}{假定}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}
+
+\theoremstyle{remark}
+\newtheorem{remark}{注}
+
+\theoremstyle{remark}
+\newtheorem{lemma}{引理}
+\allowdisplaybreaks
+
+\begin{document}
+\maketitle
+
+\section{\texorpdfstring{$C^\ast$}{} 代数的 \texorpdfstring{$K_0$}{} 群}
+
+\begin{definition}[投影]
+    定义 Banach 代数中的投影元为幂等的自伴元. 以下采用记号
+    \begin{align*}
+        \mathrm{Proj}(X):=\mathrm{Idem}(X)\cap \mathrm{SA}(X).
+    \end{align*}
+\end{definition}
+
+\begin{definition}[正交补]
+    显然 $x\in \mathrm{Proj}(X)$ 当且仅当 $e-x\in \mathrm{Proj}(X)$.
+\end{definition}
+
+\begin{proposition}
+    对任意 $p\in (\mathrm{Proj}(X)\setminus \{0,e\})$, 总有 $\sigma_X(x)=\{0,1\}$.
+\end{proposition}
+
+\begin{proposition}
+    定义 $\mathrm{Proj}(X)$ 上偏序如下: $x\leq y$ 当且仅当 $(y-x)$ 是投影, 亦当且仅当 $x(y-x)=0$.
+\end{proposition}
+
+\begin{definition}[等距]
+    给定 $C^\ast $ 代数 $X$, 称 $x\in X$ 部分等距当且仅当 $x^\ast x\in \mathrm{Proj}(X)$. 称 $x$ 是等距当且仅当 $x^\ast x=e$. 特别地, $x$ 与 $x^\ast$ 均为等距当且仅当 $x$ 是酉元.
+\end{definition}
+
+\begin{definition}[Murray-von Neumann 等价]
+    定义 $\mathrm{Proj}(X)$ 上的等价关系 $[\cdot ]$ 如下: $[p]=[p']$ 当且仅当存在部分等距 $x$ 使得 $x^\ast x=p$ 且 $xx^\ast =p'$.
+\end{definition}
+
+\begin{definition}[酉等价]
+    定义 $\mathrm{Proj}(X)$ 上的酉等价关系 $[\cdot ]_u$ 如下: $[p]_u=[p']_u$ 当且仅当 $[p]=[p']$ 且同时存在酉元 $x$ 使得 $p=x^\ast p'x$.
+\end{definition}
+
+\begin{definition}
+    若 $[p]=[p']$, 则 $[p]_u=[p']_u$ 当且仅当 $[e-p]=[e-p']$.
+    \begin{proof}
+        一方面, 若存在酉元 $x$ 使得 $x^\ast px=p'$, 则
+        \begin{align*}
+            x^\ast (e-p)x=x^\ast x -x^\ast px=e-p'.
+        \end{align*}
+        另一方面, 若存在部分等距 $x$ 与 $y$ 使得
+        \begin{align*}
+            x^\ast x=p, \quad xx^\ast =p',\quad y^\ast y=e-p,\quad yy^\ast =e-p'.
+        \end{align*}
+        依照命题 \ref{kerx=kerx*x}, $x^\ast y=0$ 当且仅当 $xx^\ast yy^\ast =p'(e-p')=0$. 从而 $(x+y)(x^\ast +y^\ast)=e+yx^\ast +xy^\ast=e$. 由于 $(x+y)$ 是酉元, 结合 $(x+y)p(x+y)^\ast=(p')^3=p'$ 知 $[p]_u=[p']_u$.
+    \end{proof}
+\end{definition}
+
+\begin{definition}[同伦]
+    拓扑空间 $X$ 中元素 $x$ 与 $y$ 同伦, 当且仅当 $x$ 与 $y$ 属于同一道路连通分支, 记作 $[x]_h=[y]_h$.
+\end{definition}
+
+\begin{example}\label{structure-de-U0}
+    记 $C^\ast$ 代数 $X$ 的酉元全体为拓扑群 $U$, 记 $e$ 所在的连通分支为 $U_0$, 则 $U_0$ 为 $U$ 的子群. 由于任意 $x\in U$ 的共轭作用保持同伦与单位元 $e$, 即,
+    \begin{align*}
+        x(-)x^\ast:\quad  [\,[0,1]\to U, t\mapsto \gamma(t)]\quad \mapsto \quad  [\,[0,1]\to U, t\mapsto x\gamma(t)x^\ast].
+    \end{align*}
+    因此 $U_0\lhd U$. 下证明 $U_0$ 无非群
+    \begin{align*}
+        G:=\exp \left(i\sum_{\lambda \in \Lambda_0} r_\lambda\right) \qquad (r_\lambda \text{ 自伴}, |\Lambda_0|<\omega ).
+    \end{align*}
+    显然 $\gamma:t\mapsto e^{itr_\lambda}$ 表明 $G$ 是 $U_0$ 的子群. 往证 $G$ 开. 任取 $g\in G$ 与 $x\in B(g,2)\cap U$, 总有 $\|1-xg^\ast \|<2$. 因此 $-1\notin \sigma(xg^\ast)$, 进而存在 $\varepsilon >0$ 使得 $\sigma(xg^\ast)\subseteq [e^{-i(-\pi+\varepsilon)},e^{-i(\pi-\varepsilon)}]=:V$. 记连续函数
+    \begin{align*}
+        \Phi:V\to \mathbb C, \quad e^{i\theta}\mapsto \theta.
+    \end{align*}
+    因此存在自伴算子 $\Phi(xg^\ast)$ 使得 $xg^\ast = \exp i\Phi(x g^\ast)$, 于是 $x=xg^\ast g\in G$. 同理, 若存在 $u\in U_0\setminus G$, 则 $u:G\to u\cdot G$ 给出开集间的同构. 从而陪集划分给出无交并
+    \begin{align*}
+        U_0=(U_0\setminus G)\dot\cup G.
+    \end{align*}
+    由于 $U_0$ 连通, 从而 $U_0\setminus G$ 为空. 据以上, $U_0$ 为 $U$ 的开且闭的正规子群.
+\end{example}
+
+\begin{remark}
+    以上论证表明谱非 $S^1$ 的酉元在 $U$ 中彼此同伦等价, 因此距离小于 $2$ 的酉元在 $U$ 中彼此同伦等价. 特别地, 矩阵代数 $M_n(\mathbb C)$ 的酉群连通. \par
+    $C(S^1)$ 中函数 $\mathrm{id}_{S^1}$ 的谱为 $S^1$, 下断言 $\mathrm{id}_{S^1}\notin U_0(C(S^1))$. 依照拓扑学常识(如 de Rham 上同调等), 不存在自伴算子 $x\in C(S^1)$ 使得 $\mathrm{id}_{S^1}=\exp(ix)$.
+\end{remark}
+
+\begin{proposition}
+    $C^\ast$ 代数 $X$ 中投影元 $p$ 与 $p'$ 在 $\mathrm{Proj}(X)$ 中同伦等价, 当且仅当其相差 $U_0$ 中某元素的共轭.
+    \begin{proof}
+        充分性显然(见例 \ref{structure-de-U0}). 往证必要性. 不妨设 $\|p-p'\|$ 足够小, 记 $T:=pp'+(e-p)(e-p')$, 则
+        \begin{align*}
+            \|e-T\|=\|2pp'-p-p'\|=\|p(p'-p)+p'(p-p')\|\leq 2\|p-p'\|< 1.
+        \end{align*}
+        从而 $T$ 可逆, 遂得 $Tp'T^{-1}=(pp')T^{-1}=(pT)T^{-1}=p$. 从而
+        \begin{align*}
+            p=\dfrac{T}{\|T\|}\cdot p'\cdot \left(\dfrac{T}{\|T\|}\right)^{-1}.
+        \end{align*}
+        注意到 $\left[\dfrac{T}{\|T\|}\right]_h=[e]_h$, 得证.
+    \end{proof}
+\end{proposition}
+
+\begin{remark}
+    $C^\ast$ 代数的投影元空间 $\mathrm{Proj}(X)$ 中恒有
+    \begin{align*}
+        [p]=[p']\implies [p]_u=[p']_u\implies [p]_h=[p']_h.
+    \end{align*}
+    反之未必. 反例显然.
+\end{remark}
+
+\begin{theorem}\label{reinforce}
+    给定 Banach 代数 $X$, 则 $X\hookrightarrow M_2(X), x\mapsto \begin{pmatrix}x&0\\0&0\end{pmatrix}$ 将 Murray-von Neumann 等价强化作酉等价, 将酉等价强化作同伦.
+    \begin{proof}
+        注意到
+        \begin{align*}
+            \small\begin{pmatrix}xx^\ast&e-xx^\ast\\e-xx^\ast&xx^\ast\end{pmatrix}\begin{pmatrix}x&e-xx^\ast\\e-x^\ast x&x^\ast\end{pmatrix}\begin{pmatrix}x^\ast x&0\\0&0\end{pmatrix}=\begin{pmatrix}xx^\ast &0\\0&0\end{pmatrix}\begin{pmatrix}xx^\ast&e-xx^\ast\\e-xx^\ast&xx^\ast\end{pmatrix}\begin{pmatrix}x&e-xx^\ast\\e-x^\ast x&x^\ast\end{pmatrix},
+        \end{align*}
+        从而 Murray-von Neumann 等价给出酉等价. 注意到 $\sigma:\begin{pmatrix}
+                0 & e \\e&0
+            \end{pmatrix}\mapsto \{\pm 1\}$, 依照例 \ref{structure-de-U0} 计算得
+        \begin{align*}
+            \left[\begin{pmatrix}e&0\\0&e\end{pmatrix}\right]_h=\left[\begin{pmatrix}0&e\\e&0\end{pmatrix}\right]_h.
+        \end{align*}
+        遂有
+        \begin{align*}
+            \left[\begin{pmatrix}x&0\\0&y\end{pmatrix}\right]_h=\left[\begin{pmatrix}x&0\\0&e\end{pmatrix}\begin{pmatrix}0&e\\e&0\end{pmatrix}\begin{pmatrix}y&0\\0&e\end{pmatrix}\begin{pmatrix}0&e\\e&0\end{pmatrix}\right]_h=\left[\begin{pmatrix}xy&0\\0&e\end{pmatrix}\right]_h.
+        \end{align*}
+        置 $x$ 与 $y$ 为某酉元及其伴随, 从而 $X$ 中酉等价为 $M_2(X)$ 中同伦.
+    \end{proof}
+\end{theorem}
+
+\begin{example}[满 $\ast$-同态性质举例]
+    给定 $C^\ast$ 代数满同态 $X\overset{f}{\twoheadrightarrow} Y$ (保持 $\ast$ 与单位元), 则有以下论断.
+    \begin{enumerate}
+        \item $f: U_0(X) =U_0(Y)$.
+        \item $y\in f(U(X))$ 在 $U(Y)$ 中的同伦元仍属于 $f(U(X))$.
+        \item 对任意 $y\in U(Y)$, 存在 $a\in U_0(M_2(X))$ 使得 $f(a)=\begin{pmatrix} y&\\&y^\ast\end{pmatrix}$.
+        \item 对任意自伴元 $y\in Y$, 存在同为自伴元的原像 $x\in X$ 使得 $\|x\|=\|y\|$.
+        \item 对任意 $y\in Y$, 存在原像 $x\in X$ 使得 $\|x\|=\|y\|$.
+    \end{enumerate}
+    \begin{proof}
+        依次证明如下.
+        \begin{enumerate}
+            \item 一方面, $\ast$-同态表明 $f:U_0(X)\to U_0(Y)$. 另一方面, 例 \ref{structure-de-U0} 表明任意 $y\in U_0(Y)$ 形如 $\exp i\sum t_i$, 其中 $\sum t_i$ 为自伴算子的有限和. 任取 $s_i$ 使得 $f(s_i)=t_i$, 则 \begin{align*}
+                      f:\exp i\sum \dfrac{s_i+s_i^\ast}{2}\mapsto y.
+                  \end{align*}
+                  从而 $f:U_0(X)\to U_0(Y)$ 满.
+            \item 即证任意 $f(x)\in f(U(X))$ 在 $U(B)$ 中的同伦元 $y$ 仍属于 $f(U(X))$. 显然 $yf(x^\ast)$ 与 $1$ 同伦, 从而 $yf(x^\ast)\in U_0(Y)$. 根据第一条结论, 存在 $z\in X$ 使得 $f(z)=yf(x^\ast)$, 故 $y=f(zx)$.
+            \item 定理 \ref{reinforce} 表明 $\begin{pmatrix}y&\\&y^\ast\end{pmatrix}$ 与 $I\in U_0(M_2(Y))$ 同伦. 根据上一则, $f$ 保持 $U_0$ 之满射, 是以 $a$ 存在.
+            \item 对任意自伴元 $y\in Y$, 取 $x_0\in X$ 使得 $f(x_0)=y$. 不妨设 $x_0=\dfrac{x_0+x_0^\ast}{2}$ 为自伴的. 今考虑截断函数 $\varphi(t)=\min\{\max\{t,-\|b\|\},\|b\|\}$. 记 $x=\varphi(x_0)$, 则 $\sigma_X(x)=\sigma_X(\varphi(x_0))\subseteq [-\|b\|,\|b\|]$. 从而 $\|x\|\leq \|y\|$. 另一方面, $f(\varphi(x_0))=\varphi(f(x_0))=\varphi(y)=y$, 从而 $\|y\|\leq \|x\|$. 综上, $\|x\|=\|y\|$.
+            \item 对任意 $y\in Y$, 考虑 $M_2(Y)$ 中自伴元 $y':=\begin{pmatrix}0&y\\y^\ast&0\end{pmatrix}$. 则存在 $x'\in M_2(X)$ 使得 $\|x'\|=\|y'\|$ 且 $f(x')=y'$. 写作矩阵形式, 则
+                  \begin{align*}
+                      f:x'=\begin{pmatrix}x_1&x_2\\x_3&x_4\end{pmatrix}\mapsto \begin{pmatrix}f(x_1)&f(x_2)\\f(x_3)&f(x_4)\end{pmatrix}=\begin{pmatrix}0&y\\y^\ast&0\end{pmatrix}.
+                  \end{align*}
+                  此处 $x_2$ 自伴且 $\|x_2\|\leq \|x'\|=\|y'\|=\sqrt{\|y'y'^\ast\|}=\|y\|$. 另一方面, 第三则证明表明 $\|y\|=\|f(x_2)\|\leq \|x_2\|$. 从而 $\|x_2\|=\|y\|$.
+        \end{enumerate}
+    \end{proof}
+\end{example}
+
+\begin{remark}
+    满 $\ast$-同态 $X\overset{f}{\twoheadrightarrow} Y$ 未必保持投影或酉元.
+    \begin{enumerate}
+        \item 考虑 $C([0,1])\to \mathbb C\oplus \mathbb C, f\mapsto (f(0),f(1))$, 则投影 $(0,1)$ 的提升必不为投影.
+        \item 考虑正合列 $0\to C(\mathbb D)\to C(\overline{\mathbb D})\to C(S^1)\to 0$. 显然 $\mathrm{id}_{S^1}$ 为 $C(S^1)$ 中的酉元. 依照拓扑学常识, $\mathrm{id}_{S^1}$ 的任意提升均有零点, 从而不是酉元.
+    \end{enumerate}
+\end{remark}
+
+\begin{definition}[幂等等价]
+    称幂等元 $e,e'\in X$ 等价, 若存在 $x,y\in X$ 使得 $e=xy$ 且 $e'=yx$. 记等价关系为 $[e]_i=[e']_i$.
+\end{definition}
+
+\begin{theorem}
+    对任意幂等元 $e\in\mathrm{Idem}(X)$, 总存在 $p\in \mathrm{Proj}(X)$ 使得 $[p]_h=[e]_h$ 在 $\mathrm{Proj}(X)$ 中成立, 且 $[p]_i=[e]_i$.
+    \begin{proof}
+
+    \end{proof}
+\end{theorem}
+
+\end{document}

@@ -1,0 +1,228 @@
+\documentclass{MainStyle}
+
+\usepackage{amsthm, amsfonts, amsmath, amssymb, quiver, mathrsfs, newclude, tikz-cd, ctex}
+
+% Customise href Colours.
+\usepackage[colorlinks = true,
+            linkcolor = blue,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+
+\newcommand{\changeurlcolor}[1]{\hypersetup{urlcolor=#1}}       
+
+\newcommand*{\name}{张陈成}
+\newcommand*{\id}{023071910029}
+\newcommand*{\course}{$K$-理论笔记}
+\newcommand*{\assignment}{交换环的 Picard 群}
+
+\theoremstyle{definition}
+\newtheorem{example}{例}
+
+\theoremstyle{definition}
+\newtheorem{slogan}{原旨}
+
+\theoremstyle{definition}
+\newtheorem{definition}{定义}
+
+\theoremstyle{definition}
+\newtheorem{proposition}{命题}
+
+\theoremstyle{definition}
+\newtheorem{problem}{问题}
+
+\theoremstyle{definition}
+\newtheorem{assumption}{假定}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}
+
+\theoremstyle{remark}
+\newtheorem{remark}{注}
+
+\theoremstyle{remark}
+\newtheorem{lemma}{引理}
+\allowdisplaybreaks
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{投射模的秩(纤维)}
+
+\begin{definition}[秩, 纤维]
+    对 $R$-模 $X$ 给出的秩函数
+    \begin{align*}
+        \mathrm{rank}_{X}:\mathrm{Spec}(R)\to \mathbb N, \quad \mathfrak p\mapsto \dim_{R_{\mathfrak p}/\mathfrak p}\left(\dfrac{X}{\mathfrak p X}\right)_{\mathfrak p}.
+    \end{align*}
+    此处局部化与商模交换, 局部环 $A_{\mathfrak p}$ 具有唯一的极大理想 $\mathfrak p$, 故
+    \begin{align*}
+        \left(\dfrac{X}{\mathfrak p X}\right)_{\mathfrak p}\simeq (R/\mathfrak p\otimes _{\mathfrak p}X)_{\mathfrak p}\simeq \dfrac{R_{\mathfrak p}}{\mathfrak p}\otimes_{R_{\mathfrak p}} X_{\mathfrak p},
+    \end{align*}
+    称作 $X$ 在 $\mathfrak p$ 处的纤维.
+\end{definition}
+
+\begin{proposition}[Noether 环上投射模的等价定义]\label{noether-proj-freerank}
+    对 Noether 环 $R$ 上有限生成模 $X$, $X$ 投射当且仅当对任意 $\mathfrak p\in \mathrm{Spec}(R)$, $X_{\mathfrak p}$ 是自由 $R_{\mathfrak p}$-模.
+    \begin{proof}
+        注意到 $P$ 有限表示, 故局部化保持 $\mathrm{Hom}(P,-)$ 的正合性, 从而保持投射模. 记局部环 $A:=R_{\mathfrak p}$,极大理想 $\mathfrak m:=\mathfrak p_{\mathfrak p}$. 取 $M:=X_{\mathfrak p}$ 的极小有限生成集 $S=\{x_i\}_{1\leq i\leq n}$, 其在 $A\to A/\mathfrak m$ 中的项为 $\overline S=\{\overline{x_i}\}_{1\leq i\leq n}$. 记投射模的直和关系 $M\oplus N\simeq A^n\simeq \bigoplus_{1\leq i\leq n}Ax_i$. 从而
+        \begin{align*}
+            M/\mathfrak mM\simeq A^n/\mathfrak m\simeq M/\mathfrak m M\oplus N/\mathfrak mN
+        \end{align*}
+        考虑线性空间维度以及中山引理, 得 $N=0$. 故 $X_{\mathfrak p}$ 是自由 $R_\mathfrak p$-模.\par
+        相反地, 若 $\mathrm{Hom}_{R_{\mathfrak p}}(P_{\mathfrak p},(-)_{\mathfrak p})\simeq \mathrm{Hom}_R(P,-)_{\mathfrak p}$ 对任意 $\mathfrak p$ 均正合, 则只需证明正合列间关系
+        \begin{align*}
+            L_\mathfrak p\overset{f_\mathfrak p}\longrightarrow M_\mathfrak p\overset{g_\mathfrak p}\longrightarrow N_\mathfrak p \quad (\forall \mathfrak p)\quad \implies L\overset f\longrightarrow M\overset g\longrightarrow N.
+        \end{align*}
+        由于局部化保持零态射, 从而保持链复形. 记 $T:=\dfrac{\mathrm{ker}(f)}{\mathrm{im}(g)}$, 则 $T_{\mathfrak p}=0$ 对一切素理想成立, 因此 $T=0$.
+    \end{proof}
+\end{proposition}
+
+\begin{remark}
+    Kaplansky 定理表明非交换局部环上的非有限生成投射模(即可数生成投射模之直和)仍自由.
+\end{remark}
+
+\begin{proposition}
+    有限展示 $R$-模 $X$ 投射, 当且仅当 $R_{\mathfrak p}$ 对一切 $\mathfrak p\in \mathrm{spec}(R)$ 投射(等价地, 自由).
+\end{proposition}
+
+\begin{proposition}
+    前已证明有限生成投射模, 有限展示投射模, 有限展示平坦模彼此等价. 对 Noether 而言, 有限生成与有限展示等价, 故 (左) Noether 环(右)完美.
+\end{proposition}
+
+\begin{definition}[有限生成投射模的秩函数]
+    kaplansky 定理表明局部环上的投射模自由, 其交换且有限生成之情形已在前文证明(中山引理之推论). 今给定交换环 $R$, 定义有限生成投射模 $P$ 的秩函数为
+    \begin{align*}
+        \mathrm{rank}_P:\mathrm{spec}(R)\to \mathbb N,\quad \mathfrak p\mapsto \mathrm{rank}_{R_{\mathfrak p}}(P_{\mathfrak p}).
+    \end{align*}
+    简而言之, $\mathrm{rank}_P(\mathfrak p)$ 是 $R$-模 $P$ 在 $\mathfrak p$-局部化下(作为自由 $R_{\mathfrak p}$-模)的秩.
+\end{definition}
+
+\begin{proposition}[秩函数的乘法]
+    给定交换环 $R$ 与有限生成投射 $R$-模 $M$ 与 $N$, 则有
+    \begin{align*}
+        \mathrm{rank}_{M\otimes N}(\mathfrak p)\mapsto \mathrm{rank}_M(\mathfrak p)\cdot \mathrm{rank}_N(\mathfrak p)\quad (\forall \mathfrak p\in \mathrm{spec}(R)).
+    \end{align*}
+    \begin{proof}
+        此处投射模的张量积仍投射. 考虑 $M\oplus M'\simeq R^\lambda$, 则有
+        \begin{align*}
+            (M\otimes N)\oplus (M'\otimes N)\simeq R^\lambda\otimes N \simeq N^\lambda.
+        \end{align*}
+        从而 $M\otimes N$ 仍为自由模的直和项, 因此投射. 假定 $M_{\mathfrak p}\simeq R_{\mathfrak p}^m$ 以及 $N_{\mathfrak p}\simeq R_{\mathfrak p}^n$, 则
+        \begin{align*}
+            M_{\mathfrak p}\otimes_{R_{\mathfrak p}} N_{\mathfrak p}\simeq R_{\mathfrak p}^m\otimes_{R_{\mathfrak p}} R_{\mathfrak p}^n\simeq R_{\mathfrak p}^{mn}.
+        \end{align*}
+    \end{proof}
+\end{proposition}
+
+\begin{remark}
+    由于有限生成投射模有限展示, 从而局部化与 $\mathrm{Hom}_R(P,-)$ 可交换. 类比上述证明有, $\mathrm{rank}_{\mathrm{Hom}_R(P,Q)}=\mathrm{rank}_P\cdot \mathrm{rank}_Q$.
+\end{remark}
+
+
+\section{可逆模 $=$ 线丛 $=$ 交换半环 $R\mathrm{-Mod}$ 中单位}
+
+\begin{proposition}[对偶模回顾]
+    给定交换环 $R$, 定义 $X\in \mathsf{Ob}(R\mathrm{-Mod})$ 的对偶模为
+    \begin{align*}
+        X^\ast:=\mathrm{Hom}_{R\mathrm{-Mod}}(X,R)\quad \in \mathsf{Ob}(R^{\mathrm{op}}\mathrm{-Mod}).
+    \end{align*}
+    有以下关于对偶模的常用性质.
+    \begin{enumerate}
+        \item $\varepsilon: P\to P^{\ast\ast}$ 为典范单态射.
+        \item 自由模与投射模的一种等价定义如下.
+              \begin{itemize}
+                  \item $F$ 是\textbf{自由 $R$-模}, 当且仅当存在指标集 $I$ 与 $\{(x_i,f_i)\in F\times F^\ast\}_{i\in I}$ 使得有分解(有限和) $\displaystyle x=\sum _{i\in I}f_i(x)x_i$, 且有限和 $\displaystyle x=\sum _{i\in I}a_i x_i$ 对一切 $x\in F$ \textbf{唯一}.
+                  \item $P$ 是\textbf{投射 $R$-模}, 当且仅当存在指标集 $I$ 与 $\{(x_i,f_i)\in P\times P^\ast\}_{i\in I}$ 使得有分解(有限和) $\displaystyle x=\sum _{i\in I}f_i(x)x_i$, 但有限和 $\displaystyle x=\sum _{i\in I}a_i x_i$ 对 $x\in P$ \textbf{不必唯一}.
+              \end{itemize}
+        \item 有限生成投射模的对偶模同为投射 $R$-模. 具体地, 对任意 $P\oplus Q\simeq R^n$ 总有
+              \begin{align*}
+                  \mathrm{Hom}_R(P,R)\oplus \mathrm{Hom}_R(Q,R)\simeq \mathrm{Hom}_R(R^n,R)\simeq (\mathrm{End}_R(R))^n\simeq R^n.
+              \end{align*}
+              此时 $\varepsilon: P^{\ast\ast}\simeq P$ 为同构.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proposition}[有限生成投射模之对偶不改变秩函数]
+    取 $R$ 上有限生成投射模 $P$, 则有
+    \begin{align*}
+        P_\mathfrak p^n\simeq R_\mathfrak p^n\simeq \mathrm{Hom}_{R_\mathfrak p}(P_\mathfrak p,R_\mathfrak p)^n\simeq (P^\ast_\mathfrak p)^n\simeq (P^\ast)_\mathfrak p^n.
+    \end{align*}
+\end{proposition}
+
+\begin{proposition}[秩函数运算总结]
+    对交换环 $R$ 上有限生成模, 有如下秩函数的等式(逐点相等).
+    \begin{enumerate}
+        \item $\mathrm{rank}_{R^n}$ 为 $\mathrm{spec}(R)$ 到 $\{n\}$ 的常函数.
+        \item $\mathrm{rank}_{P\oplus Q}=\mathrm{P}+\mathrm{rank}_Q$.
+        \item $\mathrm{rank}_{P\otimes Q}=\mathrm{P}\cdot \mathrm{rank}_Q$.
+        \item $\mathrm{rank}_{\mathrm{Hom}_R(P,Q)}=\mathrm{rank}(P)\cdot \mathrm{rank}(Q)$.
+        \item $\mathrm{rank}(P)=\mathrm{rank}(P^\ast)$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{definition}[$R$-模范畴的半环结构]
+    $(R\mathrm{-Mod},\oplus, \otimes)$ 为交换半环, 即,
+    \begin{enumerate}
+        \item 环中元素为 $\mathsf{Ob}(R\mathrm{-Mod})/\simeq$. 为方便记号, 今后省略商关系.
+        \item $(R\mathrm{-Mod},\oplus)$ 为交换幺半群, 其幺元为 $0$;
+        \item $(R\mathrm{-Mod}, \otimes)$ 为交换幺半群, 其幺元为 $R$;
+        \item $\oplus$ 与 $\otimes$ 分别作为加法与乘法, 满足分配律.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[可逆模(线丛)]
+    交换半环 $(R\mathrm{-Mod},\oplus, \otimes)$ 中的单位(可逆乘法元)全体为\textbf{可逆模(线丛)}.
+\end{definition}
+
+\begin{proposition}
+    取交换环 $R$ 上有限生成模 $M$. 称 $M$ 可逆, 若以下等价命题成立.
+    \begin{enumerate}
+        \item 存在 $R$-模 $N$ 使得 $M\otimes N\simeq R$. 换言之, $M$ (所属的同构类)是环 $(R\mathrm{-Mod},\oplus,\otimes)$ 中的乘法逆元.
+        \item $M\otimes_R-$ 为 $R$-模范畴到自身的等价. 换言之, 存在 $N\otimes-$ 使得 $(M\otimes N\otimes -)\simeq (R\otimes -)$.
+        \item $M$ 是有限生成的秩恒为 $1$ 的投射模.
+    \end{enumerate}
+    若前两则成立, 则可取 $\mathrm{Hom}_R(N,R)\simeq M$.
+    \begin{proof}
+        $1\Longleftrightarrow 2$ 是显然的. 函子 $-\otimes M$ 给出范畴 $R\mathrm{-Mod}$ 到自身的范畴等价, 当且仅当 $M$ 是环 $(R\mathrm{-Mod},\oplus,\times)$ 的乘法可逆元. 换言之, 存在 $N$ 使得 $N\otimes M\simeq R\simeq M\otimes N$. \par
+        $3\implies 1$ 若 $M$ 是秩 $1$ 的投射模, 记 $N=M^\ast$, 并考虑赋值映射
+        \begin{align*}
+            M\otimes N\to R,\quad x\otimes f\mapsto f(x).
+        \end{align*}
+        显然该映射对任意素理想的局部化是同构. 由于 $M$ 投射, 从而对任意素理想 $\mathfrak p$,
+        \begin{align*}
+            R_{\mathfrak p}\simeq \mathrm{Hom}_{R_{\mathfrak p}}(M_{\mathfrak p},R_{\mathfrak p})\simeq (\mathrm{Hom}_R(M,R))_{\mathfrak p}\simeq N_{\mathfrak p}.
+        \end{align*}
+        因此 $N=M^\ast$ 也是秩为 $1$ 的投射模. 由于 $M_{\mathfrak p}\otimes_{R_\mathfrak p} N_{\mathfrak p}\simeq R_{\mathfrak p}$ 对一切 $\mathfrak p$ 成立, 从而 $M\otimes N\simeq R$.\par
+        $1\implies 3$ 在 $M\otimes N\simeq R$ 两端作 $\mathfrak p$-局部化, 则 $\mathrm{rank}_M=\mathrm{rank}_N=\mathrm{rank}_R$. 下仅需证明 $M$ 与 $N$ 投射. 记 $M$ 的有限生成元 $\{m_i\}_{1\leq i\leq m}$ 与一组 $\{n_i\}_{1\leq i\leq m}\subseteq N$ 使得有
+        \begin{align*}
+            \sum_{1\leq i\leq m}m_i\otimes n_i =1\otimes 1\quad \left(\simeq 1\in R\right).
+        \end{align*}
+        以此构造满同态 $N^m\twoheadrightarrow R$, 其中 $(x_1,\ldots x_m)\mapsto \sum_{1\leq i\leq m}m_i\otimes x_i$. 显然该满同态可裂, 记
+        \begin{align*}
+            N^m\simeq R^m\otimes N\simeq R\oplus Q.
+        \end{align*}
+        从而 $R^m\simeq R^m\otimes (M\otimes N)\simeq N^m\otimes N\simeq (R\oplus Q)\otimes N\simeq N\oplus (Q\otimes N)$. 因此 $N$ 投射. 对称地, $M$ 亦投射.
+    \end{proof}
+\end{proposition}
+
+\begin{definition}[Picard 群]
+    记环 $R$ 中 Picard 群为 $\mathrm{Pic}(R)$ 有限生成可逆模 $\langle M\rangle$ 构成的乘法群. 其中
+    \begin{enumerate}
+        \item $\langle M\otimes_R N\rangle=\langle M\rangle\cdot \langle  N\rangle$.
+        \item $\langle \mathrm{Hom}_R(M,R)\rangle=\langle M\rangle^{-1}$.
+        \item $\langle R\rangle$ 为乘法单位.
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    $\mathrm{Pic}:\mathrm{Ring}\to \mathrm{Ab}$ 为(协变)函子. 特别地,
+    \begin{align*}
+        \mathrm{Pic}:\left[R\overset f\longrightarrow S\right]\mapsto [P\mapsto S\otimes_R P].
+    \end{align*}
+    结合律与单位律由张量积的结合律保证.
+\end{remark}
+
+\section{一些代数几何解释}
+
+\end{document}

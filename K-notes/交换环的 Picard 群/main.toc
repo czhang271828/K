@@ -1,0 +1,3 @@
+\contentsline {section}{\numberline {1}投射模的秩(纤维)}{1}{section.1}%
+\contentsline {section}{\numberline {2}可逆模 $=$ 线丛 $=$ 交换半环 $R\mathrm {-Mod}$ 中单位}{2}{section.2}%
+\contentsline {section}{\numberline {3}一些代数几何解释}{4}{section.3}%

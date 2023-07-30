@@ -1,0 +1,349 @@
+\documentclass{MainStyle}
+
+\usepackage{amsthm, amsfonts, amsmath, amssymb, quiver, mathrsfs, newclude, tikz-cd, ctex}
+
+% Customise href Colours.
+\usepackage[colorlinks = true,
+            linkcolor = blue,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+
+\newcommand{\changeurlcolor}[1]{\hypersetup{urlcolor=#1}}       
+
+\newcommand*{\name}{张陈成}
+\newcommand*{\id}{023071910029}
+\newcommand*{\course}{$K$-理论笔记}
+\newcommand*{\assignment}{投射模简介}
+
+\theoremstyle{definition}
+\newtheorem{example}{例}
+
+\theoremstyle{definition}
+\newtheorem{slogan}{原旨}
+
+\theoremstyle{definition}
+\newtheorem{definition}{定义}
+
+\theoremstyle{definition}
+\newtheorem{proposition}{命题}
+
+\theoremstyle{definition}
+\newtheorem{problem}{问题}
+
+\theoremstyle{definition}
+\newtheorem{assumption}{假定}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}
+
+\theoremstyle{remark}
+\newtheorem{remark}{注}
+
+\theoremstyle{remark}
+\newtheorem{lemma}{引理}
+\allowdisplaybreaks
+
+\begin{document}
+\maketitle
+\tableofcontents
+\section{Abel 中投射对象的的等价定义}
+\begin{definition}[群, 环, 域, 模以及代数, Abel 范畴等]
+    略.
+\end{definition}
+
+\begin{definition}[投射对象]\label{module-projectif}
+    称 Abel 范畴 $\mathcal A$ 中对象 $P$ 为\textbf{投射对象}, 若任意满态射 $X\overset \pi \twoheadrightarrow Y$ 与态射 $P\overset f\to Y$ 给出提升 $\tilde f$, 使得有交换图
+    % https://q.uiver.app/#q=WzAsNSxbMSwwLCJQIl0sWzEsMiwiWSJdLFswLDIsIlgiXSxbMiwyLCIwIl0sWzMsMSwiKGY9XFxwaVxcY2lyYyBcXHRpbGRlIGYpLiJdLFsyLDEsIlxccGkiLDJdLFsxLDNdLFswLDEsImYiXSxbMCwyLCJcXHRpbGRlIGYiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+    \[\begin{tikzcd}[row sep=tiny]
+            & P \\
+            &&& {(f=\pi\circ \tilde f).} \\
+            X & Y & 0
+            \arrow["\pi"', from=3-1, to=3-2]
+            \arrow[from=3-2, to=3-3]
+            \arrow["f", from=1-2, to=3-2]
+            \arrow["{\tilde f}"', dashed, from=1-2, to=3-1]
+        \end{tikzcd}\]
+\end{definition}
+
+\begin{proposition}[投射对象的等价定义]\label{equidef-module-projectif}
+    取 Abel 范畴 $\mathcal A$ 中对象 $P$, 则以下等价命题成立时 $P$ 为投射对象.
+    \begin{enumerate}
+        \item $\mathrm{Hom}_{\mathcal A}(P,-)$ 右正合, 从而为正合函子\footnote{试回忆: $\mathrm{Hom}_{\mathcal A}(X,-):\mathcal A\to \mathrm{Ab}$ 对一切 $X\in \mathsf{Ob}(\mathcal A)$ 均是左正合的.};
+        \item $P$ 符合定义 \ref{module-projectif} 之表述(由提升性质定义);
+        \item 形如 $X\to P\to 0$ 的正合列均可裂.
+    \end{enumerate}
+    \begin{proof}
+        先证明 $\mathrm{1}\implies \mathrm{2}\implies \mathrm{3}$. 若 $\mathrm{Hom}_{\mathcal A}(P,-)$ (协变)右正合, 则函子保持任意满态射 $X\overset \pi \twoheadrightarrow Y$. 即, 任意 $P\overset f\to Y$ 有原像 $P\overset {\tilde f}\to X$. 遂有交换图
+        % https://q.uiver.app/#q=WzAsOCxbMCwwLCJYIl0sWzAsMSwiWSJdLFsxLDAsIlxcbWF0aHJte0hvbX1fe1xcbWF0aGNhbCBBfShQLFgpIl0sWzEsMSwiXFxtYXRocm17SG9tfV97XFxtYXRoY2FsIEF9KFAsWSkiXSxbMiwwLCJQIl0sWzMsMCwiWCJdLFszLDEsIlkiXSxbMiwxLCJQIl0sWzAsMSwiXFxwaSIsMix7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFsyLDNdLFs1LDYsIlxccGkiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbNCw3LCJcXG1hdGhybXtpZH0iLDJdLFs3LDYsImYiLDJdLFs3LDUsIlxcdGlsZGUgZiIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs0LDUsIlxcdGlsZGUgZiIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs4LDksImheUCIsMCx7InNob3J0ZW4iOnsic291cmNlIjoyMCwidGFyZ2V0IjoyMH19XV0=
+        \[\begin{tikzcd}
+                X & {\mathrm{Hom}_{\mathcal A}(P,X)} & P & X \\
+                Y & {\mathrm{Hom}_{\mathcal A}(P,Y)} & P & Y
+                \arrow[""{name=0, anchor=center, inner sep=0}, "\pi"', two heads, from=1-1, to=2-1]
+                \arrow[""{name=1, anchor=center, inner sep=0}, from=1-2, to=2-2]
+                \arrow["\pi", two heads, from=1-4, to=2-4]
+                \arrow["{\mathrm{id}}"', from=1-3, to=2-3]
+                \arrow["f"', from=2-3, to=2-4]
+                \arrow["{\tilde f}", dashed, from=2-3, to=1-4]
+                \arrow["{\tilde f}", dashed, from=1-3, to=1-4]
+                \arrow["{h^P}", shorten <=9pt, shorten >=9pt, Rightarrow, from=0, to=1]
+            \end{tikzcd}.\]
+        可见 $P$ 满足定义 \ref{module-projectif} 之表述. 是故满态射 $X\overset \pi \twoheadrightarrow P$ 给出可裂短正合列
+        % https://q.uiver.app/#q=WzAsNixbMCwxLCIwIl0sWzEsMSwiSyJdLFsyLDEsIlgiXSxbMywxLCJQIl0sWzQsMSwiMCJdLFszLDAsIlAiXSxbMiwzLCJcXHBpIiwyXSxbNSwzLCJcXG1hdGhybXtpZH0iLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbNSwyLCJcXHdpZGV0aWxkZSB7XFxtYXRocm17aWR9fSIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFszLDRdLFsxLDJdLFswLDFdXQ==
+        \[\begin{tikzcd}
+                &&& P \\
+                0 & K & X & P & 0
+                \arrow["\pi"', from=2-3, to=2-4]
+                \arrow["{\mathrm{id}}", dashed, from=1-4, to=2-4]
+                \arrow["{\widetilde {\mathrm{id}}}"', dashed, from=1-4, to=2-3]
+                \arrow[from=2-4, to=2-5]
+                \arrow[from=2-2, to=2-3]
+                \arrow[from=2-1, to=2-2]
+            \end{tikzcd}.\]
+        对 $\mathrm{3}\implies\mathrm{1}$, 注意到 Abel 范畴有拉回 \footnote{Abel 范畴之态射范畴仍为 Abel 范畴, 因此态射范畴中存在二元积. 再由此对应原 Abel 范畴之拉回即可.}. 今考虑 $X\overset \pi\twoheadrightarrow Y\overset f\leftarrow P$ 的拉回(下图左)
+        % https://q.uiver.app/#q=WzAsOSxbMCwyLCJYIl0sWzIsMiwiWSJdLFsyLDAsIlAiXSxbMCwwLCJDIl0sWzQsMCwiQyJdLFs0LDEsIlhcXG9wbHVzIFAiXSxbNSwxLCJZIl0sWzMsMSwiXFxrZXIoZixcXHBpKSJdLFs0LDIsIkMiXSxbMCwxLCJcXHBpIiwyLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzIsMSwiZiJdLFszLDAsImIiLDJdLFszLDIsImEiXSxbMywxLCIiLDEseyJzdHlsZSI6eyJuYW1lIjoiY29ybmVyIn19XSxbNCw1LCJcXGJpbm9te2F9ey1ifSIsMl0sWzUsNiwiKGYsXFxwaSkiXSxbNyw1LCJcXGlvdGEiLDJdLFs0LDYsIjAiLDAseyJjdXJ2ZSI6LTJ9XSxbNCw3LCJcXHRoZXRhIiwyLHsiY3VydmUiOjIsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs3LDgsIlxcdGF1IiwyLHsiY3VydmUiOjIsInN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs4LDUsIlxcYmlub217YX17LWJ9IiwyXSxbOCw2LCIwIiwyLHsiY3VydmUiOjJ9XV0=
+        \[\begin{tikzcd}
+                C && P && C \\
+                &&& {\ker(f,\pi)} & {X\oplus P} & Y \\
+                X && Y && C
+                \arrow["\pi"', two heads, from=3-1, to=3-3]
+                \arrow["f", from=1-3, to=3-3]
+                \arrow["b"', from=1-1, to=3-1]
+                \arrow["a", from=1-1, to=1-3]
+                \arrow["\lrcorner"{anchor=center, pos=0.125}, draw=none, from=1-1, to=3-3]
+                \arrow["{\binom{a}{-b}}"', from=1-5, to=2-5]
+                \arrow["{(f,\pi)}", from=2-5, to=2-6]
+                \arrow["\iota"', from=2-4, to=2-5]
+                \arrow["0", curve={height=-12pt}, from=1-5, to=2-6]
+                \arrow["\theta"', curve={height=12pt}, dashed, from=1-5, to=2-4]
+                \arrow["\tau"', curve={height=12pt}, dashed, from=2-4, to=3-5]
+                \arrow["{\binom{a}{-b}}"', from=3-5, to=2-5]
+                \arrow["0"', curve={height=12pt}, from=3-5, to=2-6]
+            \end{tikzcd}.\]
+        上图(右)中 $\theta$ 由核之泛性质定义, $\tau$ 由拉回之泛性质定义. 遂有 $(C,\binom{a}{-b})=(\mathrm{ker}(f,\pi),\iota)$. 即,
+        % https://q.uiver.app/#q=WzAsNCxbMCwwLCIwIl0sWzEsMCwiQyJdLFszLDAsIlhcXG9wbHVzIFAiXSxbNSwwLCJZIl0sWzEsMiwiXFxiaW5vbXthfXstYn0iXSxbMCwxXSxbMiwzLCIoZixcXHBpKSJdXQ==
+        \[\begin{tikzcd}
+                0 & C && {X\oplus P} && Y
+                \arrow["{\binom{a}{-b}}", from=1-2, to=1-4]
+                \arrow[from=1-1, to=1-2]
+                \arrow["{(f,\pi)}", from=1-4, to=1-6]
+            \end{tikzcd}\]
+        为正合列. 由于 $\pi$ 满, 从而上述正合列补全为短正合列, 因此原拉回也是推出. 作态射 $(a,\pi)$ 之核, 并约定 $\ker \pi$ 至 $P$ 的零映射, 则下图实线处交换
+        % https://q.uiver.app/#q=WzAsNixbMiwwLCJDIl0sWzQsMCwiUCJdLFs0LDIsIlkiXSxbMiwyLCJYIl0sWzAsMiwiXFxrZXIgXFxwaSJdLFswLDAsIlxca2VyIGEiXSxbMywyLCJcXHBpIiwyXSxbMSwyLCJmIl0sWzAsMSwiYSJdLFswLDMsImIiLDJdLFs1LDQsIlxcdGlsZGUgYiIsMl0sWzUsMCwiaSJdLFs0LDMsImknIiwyXSxbNCwwLCJcXHZhcnBoaSIsMCx7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs0LDEsIjAiLDIseyJsYWJlbF9wb3NpdGlvbiI6NzAsImN1cnZlIjoxfV0sWzQsNSwiXFx0aWxkZSBcXHZhcnBoaSIsMCx7ImN1cnZlIjotNSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV1d
+        \[\begin{tikzcd}
+                {\ker a} && C && P \\
+                \\
+                {\ker \pi} && X && Y
+                \arrow["\pi"', from=3-3, to=3-5]
+                \arrow["f", from=1-5, to=3-5]
+                \arrow["a", from=1-3, to=1-5]
+                \arrow["b"', from=1-3, to=3-3]
+                \arrow["{\tilde b}"', from=1-1, to=3-1]
+                \arrow["i", from=1-1, to=1-3]
+                \arrow["{i'}"', from=3-1, to=3-3]
+                \arrow["\varphi", dashed, from=3-1, to=1-3]
+                \arrow["0"'{pos=0.7}, curve={height=6pt}, from=3-1, to=1-5]
+                \arrow["{\tilde \varphi}", curve={height=-30pt}, dashed, from=3-1, to=1-1]
+            \end{tikzcd}.\]
+        作出由拉回之泛性质定义的态射 $\varphi$, 再经 $\ker a$ 作出 $\tilde {\varphi}$. 注意到
+        \begin{align*}
+            i\circ \tilde \varphi\circ \tilde b  & =\varphi\circ \tilde b=i,                           \\
+            i'\circ \tilde b\circ \tilde \varphi & =b\circ i\circ \tilde \varphi = b\circ \varphi =i',
+        \end{align*}
+        因此 $\tilde b$ 于 $\tilde \varphi$ 给出 $\ker a\simeq \ker \pi$. 请读者自证如下交换图(上下两行正合)
+        % https://q.uiver.app/#q=WzAsMTIsWzIsMCwiQyJdLFszLDAsIlAiXSxbMywxLCJZIl0sWzIsMSwiWCJdLFsxLDEsIlxca2VyIFxccGkiXSxbMSwwLCJcXGtlciBhIl0sWzQsMCwiXFxtYXRocm17Y29rZXJcXCx9YSJdLFs0LDEsIlxcbWF0aHJte2Nva2VyXFwsfVxccGkiXSxbNSwwLCIwIl0sWzUsMSwiMCJdLFswLDAsIjAiXSxbMCwxLCIwIl0sWzMsMiwiXFxwaSIsMl0sWzEsMiwiZiJdLFswLDEsImEiXSxbMCwzLCJiIiwyXSxbNSwwLCJpIl0sWzQsMywiaSciLDJdLFs1LDQsIlxcc2ltZXEiLDJdLFsxLDYsImMiXSxbMiw3LCJjJyIsMl0sWzYsNywiXFxzaW1lcSJdLFs2LDgsIiIsMCx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzcsOSwiIiwwLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMTAsNV0sWzExLDRdXQ==
+        \[\begin{tikzcd}
+                0 & {\ker a} & C & P & {\mathrm{coker\,}a} & 0 \\
+                0 & {\ker \pi} & X & Y & {\mathrm{coker\,}\pi} & 0
+                \arrow["\pi"', from=2-3, to=2-4]
+                \arrow["f", from=1-4, to=2-4]
+                \arrow["a", from=1-3, to=1-4]
+                \arrow["b"', from=1-3, to=2-3]
+                \arrow["i", from=1-2, to=1-3]
+                \arrow["{i'}"', from=2-2, to=2-3]
+                \arrow["\simeq"', from=1-2, to=2-2]
+                \arrow["c", from=1-4, to=1-5]
+                \arrow["{c'}"', from=2-4, to=2-5]
+                \arrow["\simeq", from=1-5, to=2-5]
+                \arrow[Rightarrow, no head, from=1-5, to=1-6]
+                \arrow[Rightarrow, no head, from=2-5, to=2-6]
+                \arrow[from=1-1, to=1-2]
+                \arrow[from=2-1, to=2-2]
+            \end{tikzcd}.\]
+        由已知, 第一行正合列可裂. 不妨取 $P\overset{a'}\to C\overset a\to P$ 之复合为恒等映射, 则下图给出任意 $f\in \mathrm{Hom}_{\mathcal A}(P,Y)$ 之原像 $b\circ a'\in \mathrm{Hom}_{\mathcal A}(P,X)$.
+        % https://q.uiver.app/#q=WzAsNyxbMiwxLCJDIl0sWzEsMCwiUCJdLFszLDAsIlkiXSxbMSwyLCJQIl0sWzMsMiwiWCJdLFswLDAsIlxcbWF0aHJte0hvbX1fe1xcbWF0aGNhbCBBfShQLFkpIl0sWzAsMiwiXFxtYXRocm17SG9tfV97XFxtYXRoY2FsIEF9KFAsWCkiXSxbMCwxLCJhIl0sWzEsMiwiZiJdLFszLDAsImEnIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzMsMSwiIiwxLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMCw0LCJiIl0sWzQsMiwiXFxwaSIsMix7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFszLDQsImJcXGNpcmMgYSciLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbNiw1XV0=
+        \[\begin{tikzcd}
+                {\mathrm{Hom}_{\mathcal A}(P,Y)} & P && Y \\
+                && C \\
+                {\mathrm{Hom}_{\mathcal A}(P,X)} & P && X
+                \arrow["a", from=2-3, to=1-2]
+                \arrow["f", from=1-2, to=1-4]
+                \arrow["{a'}", dashed, from=3-2, to=2-3]
+                \arrow[Rightarrow, no head, from=3-2, to=1-2]
+                \arrow["b", from=2-3, to=3-4]
+                \arrow["\pi"', two heads, from=3-4, to=1-4]
+                \arrow["{b\circ a'}"', dashed, from=3-2, to=3-4]
+                \arrow[from=3-1, to=1-1]
+            \end{tikzcd}.\]
+    \end{proof}
+\end{proposition}
+
+\begin{remark}[推出-拉回的对边法则]
+    对图 $\begin{tikzcd}[sep=small]
+            & \bullet \\
+            \bullet && \bullet \\
+            & \bullet
+            \arrow["{a_1}", from=2-1, to=1-2]
+            \arrow["{b_2}", from=1-2, to=2-3]
+            \arrow["{b_1}"', from=3-2, to=2-3]
+            \arrow["{a_2}"', from=2-1, to=3-2]
+        \end{tikzcd}$, 有如下结论:
+    \begin{enumerate}
+        \item 若上图为推出且 $a_i$ 单, 则上图为拉回且 $b_i$ 单;
+        \item 若上图为拉回且 $b_i$ 满, 则上图为推出且 $a_i$ 满.
+    \end{enumerate}
+\end{remark}
+
+\section{投射对象的性质}
+
+\begin{proposition}[投射对象之收缩仍为投射对象]
+    取投射对象 $P$, 若存在 $Q$, $a$, $b$ 使得 $Q\overset a\to P\overset b\to Q$ 为恒等映射, 则 $Q$ 投射.
+    \begin{proof}
+        记 $g$ 为投射对象 $P$ 诱导的提升, $\tilde f=g\circ a$ 自然是 $f$ 的提升.
+        % https://q.uiver.app/#q=WzAsNSxbMiwwLCJRIl0sWzAsMSwiWCJdLFsxLDEsIlkiXSxbMSwwLCJQIl0sWzAsMCwiUSJdLFsxLDIsIlxccGkiLDIseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMCwyLCJmIl0sWzMsMCwiYiJdLFs0LDMsImEiXSxbMywyXSxbMywxLCJnIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzQsMSwiXFx0aWxkZSBmIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzQsMCwiXFxtYXRocm17aWR9IiwwLHsiY3VydmUiOi0zfV1d
+        \[\begin{tikzcd}
+                Q & P & Q \\
+                X & Y
+                \arrow["\pi"', two heads, from=2-1, to=2-2]
+                \arrow["f", from=1-3, to=2-2]
+                \arrow["b", from=1-2, to=1-3]
+                \arrow["a", from=1-1, to=1-2]
+                \arrow[from=1-2, to=2-2]
+                \arrow["g"', dashed, from=1-2, to=2-1]
+                \arrow["{\tilde f}"', dashed, from=1-1, to=2-1]
+                \arrow["{\mathrm{id}}", curve={height=-18pt}, from=1-1, to=1-3]
+            \end{tikzcd}.\]
+    \end{proof}
+\end{proposition}
+
+\begin{proposition}[余积保持投射模]
+    对任意集合 $I$. 余积 $\coprod_{i\in I} P_i$ 为投射对象当且仅当每一 $P_i$ 为投射对象.
+    \begin{proof}
+        若 $\coprod_{i\in I}P_i$ 投射, 则每一 $P_i$ 作为其收缩仍投射. 反之, 考虑下图% https://q.uiver.app/#q=WzAsNCxbMCwxLCJYIl0sWzEsMSwiWSJdLFsxLDAsIlxcY29wcm9kX3tpXFxpbiBJfVBfaSJdLFswLDAsIlBfaSJdLFswLDEsIlxccGkiLDIseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMiwxLCJmIl0sWzMsMiwiZV9pIl0sWzMsMCwiXFx3aWRldGlsZGUge2ZfaX0iLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMiwwLCJcXHRpbGRlIGYiLDIseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XV0=
+        \[\begin{tikzcd}
+                {P_i} & {\coprod_{i\in I}P_i} \\
+                X & Y
+                \arrow["\pi"', two heads, from=2-1, to=2-2]
+                \arrow["f", from=1-2, to=2-2]
+                \arrow["{e_i}", from=1-1, to=1-2]
+                \arrow["{\widetilde {f_i}}"', dashed, from=1-1, to=2-1]
+                \arrow["{\tilde f}"', dashed, from=1-2, to=2-1]
+            \end{tikzcd}.\]
+        其中 $\tilde {f_i}$ 为 $f\circ e_i$ 之提升, $\tilde f$ 由余积定义给出. 显然 $\pi\circ \tilde f=f$.
+    \end{proof}
+\end{proposition}
+
+\begin{proposition}[态射范畴中的基本投射对象]
+    选定 Abel 范畴 $\mathcal A$ 与投射对象 $P$, 则 $0\to P$ 与 $P\overset{\mathrm{id}}\to P$ 为态射范畴的投射对象. 直接验证之即可.
+\end{proposition}
+
+\begin{definition}
+    称 $\mathcal A$ 有\textbf{足够多投射对象}, 若任意对象 $M\in \mathsf{Ob}(\mathcal A)$ 同构于某一投射模之商.
+\end{definition}
+
+\begin{proposition}
+    设 $\mathcal A$ 为具有足够多投射对象的 Abel 范畴, 则其态射范畴仍有足够多的投射对象, 且任意投射对象为 $\substack{0\\\downarrow \\Q}\,\oplus \,\substack{P\,\,\,\,\,\\\downarrow \,\mathrm{id}\\P\,\,\,\,\,}$ 的直和项($P$ 与 $Q$ 均为投射对象).
+    \begin{proof}
+        对任意 $X\overset {f}\to f'$, 有投射模 $P$ 与 $Q$ 使得下图交换
+        % https://q.uiver.app/#q=WzAsNixbMiwwLCJQIl0sWzIsMSwiUSJdLFszLDAsIlgiXSxbMywxLCJYJyJdLFswLDEsIlBcXG9wbHVzIFEiXSxbMCwwLCJQIl0sWzAsMiwiXFxwaSIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFsyLDMsImYiXSxbMSwzLCJcXHBpJyIsMix7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFs0LDEsIihcXHRpbGRlIGZcXGNpcmMgXFxwaSxcXG1hdGhybXtpZH0pIiwyLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzIsMSwiXFx0aWxkZSBmIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzUsMCwiIiwyLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMCwxLCJcXHRpbGRlIGZcXGNpcmMgXFxwaSIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFs1LDQsIigxLDApXlQiLDJdXQ==
+        \[\begin{tikzcd}
+                P && P & X \\
+                {P\oplus Q} && Q & {X'}
+                \arrow["\pi", two heads, from=1-3, to=1-4]
+                \arrow["f", from=1-4, to=2-4]
+                \arrow["{\pi'}"', two heads, from=2-3, to=2-4]
+                \arrow["{(\tilde f\circ \pi,\mathrm{id})}"', two heads, from=2-1, to=2-3]
+                \arrow["{\tilde f}"', dashed, from=1-4, to=2-3]
+                \arrow[Rightarrow, no head, from=1-1, to=1-3]
+                \arrow["{\tilde f\circ \pi}"', dashed, from=1-3, to=2-3]
+                \arrow["{(1,0)^T}"', from=1-1, to=2-1]
+            \end{tikzcd}.\]
+        显然态射范畴中同有足够多的投射对象. 注意到 $\substack{0\\\downarrow \\Q}\,\oplus \,\substack{P\,\,\,\,\,\\\downarrow \,\mathrm{id}\\P\,\,\,\,\,}$ 到, $P\overset{\tilde f\circ \pi}\longrightarrow Q$ 满, 遂可裂.
+    \end{proof}
+\end{proposition}
+
+\section{投射对象为自由对象之直和项}
+
+\begin{definition}[自由对象]\label{module-libre}
+    若存在自由-遗忘伴随 $\begin{tikzcd}
+            {\mathcal C} & {\mathrm{Set}}
+            \arrow["U", curve={height=-18pt}, from=1-1, to=1-2]
+            \arrow["F", curve={height=-18pt}, from=1-2, to=1-1]
+            \arrow["\top"{description}, draw=none, from=1-1, to=1-2]
+        \end{tikzcd}$, 则称集合在 $F$ 下的像为\textbf{自由对象}.
+\end{definition}
+
+\begin{remark}
+    依照 Mitchell 嵌入定理, 小 Abel 范畴与某一模范畴等价. 相应地, 自由对象即自由模.
+\end{remark}
+
+\begin{remark}
+    类比定义 \ref{module-projectif}, $\mathrm{Set}$ 中任意对象既投射且内射.
+\end{remark}
+
+\begin{proposition}\label{gauche-sta-proj}
+    若右伴随保持满态射, 则左伴随保持投射对象. 直接验证即可.
+\end{proposition}
+
+\begin{remark}[自由对象投射的充分条件]
+    若定义 \ref{module-libre} 中 $U$ 保持满态射, 则左伴随(自由函子)保持投射对象.
+\end{remark}
+
+\begin{proposition}\label{module-quotient}
+    假定定义 \ref{module-libre} 中 $U$ 保持满态射, 且 $\mathcal C$ 允许直和, 则投射模等价于自由模的直和项.
+    \begin{proof}
+        一方面, 余单位作为自然变换诱导满自函子 $FU:\mathcal C\to \mathcal C, FU(X)\mapsto X$. 遂可裂满. 因此一切投射模以自由模直和项之形式出现. 另一方面, 命题 \ref{gauche-sta-proj} 表明自由对象均投射.
+    \end{proof}
+\end{proposition}
+
+\begin{theorem}\label{exist-inf-proj}
+    若具体范畴 $\mathcal C$ 与集合范畴间存在自由-遗忘伴随, 且遗忘函子 $U$ 保持满射, 则任意对象是自由对象的商, 故 $\mathcal C$ 有足够多投射对象. 若 $\mathcal C$ 为 Abel 范畴, 则投射模等价于自由模的直和项.
+\end{theorem}
+
+\begin{example}
+    应当留意以下例子:
+    \begin{enumerate}
+        \item 模范畴中, 投射模为自由模直和项, 考虑自然的遗忘函子即可.
+        \item (小)环范畴中存在某些非满射的满态射 $R\to \mathrm{frac}(R)$, 此时 $\mathrm{frac}(R)$ 自由但不投射.
+        \item 有限 Abel 群范畴与集合范畴间不存在自由-遗忘伴随, 同时没有足够的投射对象.
+    \end{enumerate}
+\end{example}
+
+\begin{theorem}\label{He-PID}
+    主理想整环遗传, 其自由模之子模仍自由. 特别地, 自由模与投射模等价.
+\end{theorem}
+
+\begin{theorem}
+    自由群之子群自由, 从而群范畴的自由对象等价于投射对象.
+    \begin{proof}
+        熟知自由群之子群自由. 应注意: 即便群范畴允许直和与正合列, 一般地有
+        \begin{align*}
+            \text{左可裂 }\Longleftrightarrow\text{ 可裂 }\underset{\neq}\implies\text{ 右可裂}.
+        \end{align*}
+        常将右可裂对应半直积. 同时强调自由群的泛性质: 任意集合 $S$ 至群 $G$ 的映射 $f:S\to G$ 通过 $S$ 生成的自由群与典范映射 $\iota:S\to F(S)$ 唯一分解. 即, 存在唯一的群同态 $\varphi$ 使得下图交换
+        % https://q.uiver.app/#q=WzAsMyxbMCwwLCJTIl0sWzEsMCwiRyJdLFswLDEsIkYoUykiXSxbMCwxLCJmIl0sWzAsMiwiXFxpb3RhIiwyXSxbMiwxLCJcXGV4aXN0c18hXFx2YXJwaGkgIiwyXV0=
+        \[\begin{tikzcd}
+                S & G \\
+                {F(S)}
+                \arrow["f", from=1-1, to=1-2]
+                \arrow["\iota"', from=1-1, to=2-1]
+                \arrow["{\exists_!\varphi }"', from=2-1, to=1-2]
+            \end{tikzcd}.\]
+        熟知群范畴之满态射与满射等价, 定理 \ref{exist-inf-proj} 表明自由群投射. 反之, 任意投射对象 $G$ 为自由群之商, 且该满同态 $FU(G)\twoheadrightarrow G$ 之右逆为 $G\hookrightarrow FU(G)$. 由于 $G$ 为自由群之子群, 从而自由.
+    \end{proof}
+\end{theorem}
+
+\begin{remark}
+    若群 $G$ 使得一切正合列可裂, 则 $G$ 平凡.\footnote{证明思路: 若右可裂正合列可裂, 当且仅当收缩之像为中间群的正规子群, 此后不难构造具体例子.}
+\end{remark}
+\end{document}

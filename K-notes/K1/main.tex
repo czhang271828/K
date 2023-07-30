@@ -1,0 +1,227 @@
+\documentclass{MainStyle}
+
+\usepackage{amsthm, amsfonts, amsmath, amssymb, quiver, mathrsfs, newclude, tikz-cd, ctex}
+
+% Customise href Colours.
+\usepackage[colorlinks = true,
+            linkcolor = blue,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+
+\newcommand{\changeurlcolor}[1]{\hypersetup{urlcolor=#1}}       
+
+\newcommand*{\name}{张陈成}
+\newcommand*{\id}{023071910029}
+\newcommand*{\course}{$K$-理论笔记}
+\newcommand*{\assignment}{$K_1$}
+
+\theoremstyle{definition}
+\newtheorem{example}{例}
+
+\theoremstyle{definition}
+\newtheorem{slogan}{原旨}
+
+\theoremstyle{definition}
+\newtheorem{definition}{定义}
+
+\theoremstyle{definition}
+\newtheorem{proposition}{命题}
+
+\theoremstyle{definition}
+\newtheorem{problem}{问题}
+
+\theoremstyle{definition}
+\newtheorem{assumption}{假定}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}
+
+\theoremstyle{remark}
+\newtheorem{remark}{注}
+
+\theoremstyle{remark}
+\newtheorem{lemma}{引理}
+\allowdisplaybreaks
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{环的 Bass-Whitehead 群}
+
+\begin{definition}\label{K1}
+    仿照定义 \ref{K0}, 记有限生成 $R$-投射模的自同构为序对 $(P,f):=P\overset f\to P$. 记
+    \begin{itemize}
+        \item[1.] 记商关系 $\langle P,f\rangle=\langle P',f'\rangle$ 当且仅当存在同构 $\varphi$ 使得有交换图 $\begin{tikzcd}[sep=scriptsize]
+                      P & {P'} \\
+                      P & {P'}
+                      \arrow["\varphi", from=1-1, to=1-2]
+                      \arrow["\varphi", from=2-1, to=2-2]
+                      \arrow["f"', from=1-1, to=2-1]
+                      \arrow["{f'}", from=1-2, to=2-2]
+                      \arrow["\sim"', draw=none, from=1-1, to=1-2]
+                      \arrow["\sim"', draw=none, from=2-1, to=2-2]
+                  \end{tikzcd}$.
+        \item[2.a.] 记商关系 $[P,f]=[P',f']+[P'',f'']$, 若有正合列的同构 $\begin{tikzcd}[sep=scriptsize]
+                      0 & {P'} & P & {P''} & 0 \\
+                      0 & {P'} & P & {P''} & 0
+                      \arrow[from=1-1, to=1-2]
+                      \arrow["\iota", from=1-2, to=1-3]
+                      \arrow["\pi", from=1-3, to=1-4]
+                      \arrow[from=1-4, to=1-5]
+                      \arrow[from=2-1, to=2-2]
+                      \arrow["\iota", from=2-2, to=2-3]
+                      \arrow["\pi", from=2-3, to=2-4]
+                      \arrow[from=2-4, to=2-5]
+                      \arrow["{f'}"', from=1-2, to=2-2]
+                      \arrow["f"', from=1-3, to=2-3]
+                      \arrow["{f''}"', from=1-4, to=2-4]
+                  \end{tikzcd}.$
+        \item[2.b.] 记商关系 $[P,f\circ g]=[P,f]+[P,g]$.
+    \end{itemize}
+    记有限生成 $R$-投射模的自同构为序对 $(P,f)$ 在商关系 $[\cdot]$ 下生成的交换群为 $K_1(R)$
+\end{definition}
+
+\begin{remark}
+    $\langle P,f\rangle\mapsto [P,f]$ 是良定义的商映射.
+\end{remark}
+
+\begin{proposition}
+    若存在 $f\in \mathrm{Aut}_R(P)$ 以及不相等的自然数 $m$ 与 $n$, 使得 $f^m(P)\simeq f^n(P)$, 则 $[P,f]=0$.
+\end{proposition}
+
+\begin{proposition}
+    任取 $[P,f]\in K_1(R)$, 则逆元为 $[P,f]+[P,f^{-1}]=[P,\mathrm{id}_P]=0$.
+\end{proposition}
+
+\begin{definition}[$GL_n(-)$ 与 $E_n(-)$]
+    记 $R$ 为环, $M_n(R)$ 为 $n$-阶矩阵环. 记 一般线性群 $GL_n(R):=M_n(R)^\times$, 初等因子群 $E_n(R)$ 由形如 $I+r E_{i,j}\in M_n(R)$ 的初等因子生成.
+\end{definition}
+
+\begin{definition}[交换子]
+    记群 $G$ 中的交换子为映射 $[\cdot,\cdot]:G\times G\to G, \quad (a,b)\mapsto aba^{-1}b^{-1}$.
+\end{definition}
+
+\begin{proposition}
+    有以下论断.
+    \begin{enumerate}
+        \item 对 $n\geq 3$, 有 $[E_n(R),E_n(R)]=E_n(R)$. 一般地, 初等矩阵是交换子.
+        \item $GL_n(R)$ 中对角为 $1$ 的上三角矩阵属于 $E_n(R)$.
+        \item 对任意 $X\in GL_n(R)$, 有 $\begin{pmatrix}
+                      X \\&X^{-1}
+                  \end{pmatrix}\in E_{2n}(R)$.
+        \item $\begin{pmatrix}
+                      [GL_n(R),GL_n(R)] \\&I
+                  \end{pmatrix}\subseteq E_{2n}(R)$.
+    \end{enumerate}
+    \begin{proof}
+        依次证明如下.
+        \begin{enumerate}
+            \item 注意到 $1+xE_{i,j}=[1+xE_{i,k},1+E_{k,j}]$.
+            \item 依照 $\begin{pmatrix}1&v^T\\&U\end{pmatrix}=\begin{pmatrix}1&\mathbf 0^T\\&U\end{pmatrix}\begin{pmatrix}1&v^T\\&I\end{pmatrix}$ 归纳, 一切对角为 $1$ 的上三角矩阵均在 $E_{n}$ 中.
+            \item 对任意 $X\in GL_n(R)$, 有
+                  \begin{align*}
+                      \begin{pmatrix}X&\\&X^{-1}\end{pmatrix}=\begin{pmatrix}I&X-I\\&I\end{pmatrix}\begin{pmatrix}I&\\I&I\end{pmatrix}\begin{pmatrix}I&X^{-1}-I\\&I\end{pmatrix}\begin{pmatrix}I&\\-X&I\end{pmatrix}.
+                  \end{align*}
+            \item 对任意 $X,Y\in GL_n(R)$, 有等式
+                  \begin{align*}
+                      \begin{pmatrix}[X,Y]&\\&I\end{pmatrix}=\begin{pmatrix}X&\\&X^{-1}\end{pmatrix}\begin{pmatrix}Y&\\&Y^{-1}\end{pmatrix}\begin{pmatrix}X^{-1}Y^{-1}&\\&YX\end{pmatrix}.
+                  \end{align*}
+        \end{enumerate}
+    \end{proof}
+\end{proposition}
+
+\begin{definition}[稳定线性群]
+    依照 $GL_n(R)\hookrightarrow GL_{n+1}(R),\quad X\mapsto \begin{pmatrix}X&\\&1\end{pmatrix}$ 给出极限% https://q.uiver.app/#q=WzAsNCxbMiwwLCJHTF9uKFIpIl0sWzIsMiwiR0xfe24rMX0oUikiXSxbMCwxLCJHTChSKToiXSxbMSwxLCJcXHZhcmluamxpbSBHTF9tKFIpIl0sWzAsMSwiIiwwLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMywyLCIiLDIseyJsZXZlbCI6Miwic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoibm9uZSJ9fX1dLFswLDMsIlxcaW90YV9uIiwyLHsiY3VydmUiOjIsInN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoiYm90dG9tIn19fV0sWzEsMywiXFxpb3RhX3tuKzF9IiwwLHsiY3VydmUiOi0yLCJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dXQ==
+    \[\begin{tikzcd}[row sep=tiny]
+            && {GL_n(R)} \\
+            {GL(R):} & {\varinjlim GL_m(R)} \\
+            && {GL_{n+1}(R)}
+            \arrow[hook, from=1-3, to=3-3]
+            \arrow[Rightarrow, no head, from=2-2, to=2-1]
+            \arrow["{\iota_n}"', curve={height=12pt}, hook', from=1-3, to=2-2]
+            \arrow["{\iota_{n+1}}", curve={height=-12pt}, hook, from=3-3, to=2-2]
+        \end{tikzcd}.\]
+    记稳定线性群与稳定初等因子群分别为
+    \begin{align*}
+        GL(R):=\bigcup_{n\in \mathbb N_+}\iota_n(GL_n(R)),\quad E_n(R):=\bigcup_{n\in \mathbb N_+} \iota_n(E_n(R)).
+    \end{align*}
+\end{definition}
+
+\begin{proposition}
+    有群的短正合列 $1\to E(R)\to GL(R)\to K_1(R)\to 1$.
+    \begin{proof}
+        $GL(R)$ 到 $K_1(R)$ 的典范态射由极限诱导如下
+        % https://q.uiver.app/#q=WzAsNSxbMCwxLCJHTF9uKFIpIl0sWzAsMywiR0xfe24rbX0oUikiXSxbMiwxLCJLXzEoUikiXSxbMCwwLCJmIl0sWzIsMCwiW1JebixmXSJdLFswLDIsIltSXm4sLV0iXSxbMSwyLCJbUl57bittfSwtXSIsMl0sWzAsMSwiLVxcb3BsdXMgXFxtYXRocm17aWR9X3tSXm19IiwyXSxbMyw0LCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV1d
+        \[\begin{tikzcd}[row sep=small]
+                f && {[R^n,f]} \\
+                {GL_n(R)} && {K_1(R)} \\
+                \\
+                {GL_{n+m}(R)}
+                \arrow["{[R^n,-]}", from=2-1, to=2-3]
+                \arrow["{[R^{n+m},-]}"', from=4-1, to=2-3]
+                \arrow["{-\oplus \mathrm{id}_{R^m}}"', from=2-1, to=4-1]
+                \arrow[maps to, from=1-1, to=1-3]
+            \end{tikzcd}.\]
+        由于 $K_1(R)$ 交换, 从而可将 $GL(R)$ 到 $K_1(R)$ 的态射分解如下.
+        % https://q.uiver.app/#q=WzAsNixbMSwwLCJHTChSKSJdLFsyLDAsIktfMShSKSJdLFsxLDEsIlxcZGZyYWN7R0woUil9e1tHTChSKSxHTChSKV19Il0sWzIsMSwiS18xKFIpIl0sWzAsMCwiXFxtYXRocm17R3JwfSJdLFswLDEsIlxcbWF0aHJte0FifSJdLFswLDFdLFswLDJdLFsyLDNdLFsxLDMsIiIsMCx7ImxldmVsIjoyLCJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzQsNSwiL1tcXGNkb3QsXFxjZG90XSIsMix7ImN1cnZlIjoyfV0sWzUsNCwiVSIsMix7ImN1cnZlIjoyfV0sWzEwLDExLCJcXGRhc2h2IiwxLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV1d
+        \[\begin{tikzcd}
+                {\mathrm{Grp}} & {GL(R)} & {K_1(R)} \\
+                {\mathrm{Ab}} & {\dfrac{GL(R)}{[GL(R),GL(R)]}} & {K_1(R)}
+                \arrow[from=1-2, to=1-3]
+                \arrow[from=1-2, to=2-2]
+                \arrow[from=2-2, to=2-3]
+                \arrow[Rightarrow, no head, from=1-3, to=2-3]
+                \arrow[""{name=0, anchor=center, inner sep=0}, "{/[\cdot,\cdot]}"', curve={height=18pt}, from=1-1, to=2-1]
+                \arrow[""{name=1, anchor=center, inner sep=0}, "U"', curve={height=18pt}, from=2-1, to=1-1]
+                \arrow["\dashv"{description}, draw=none, from=0, to=1]
+            \end{tikzcd}.\]
+        此处 $[GL(R),GL(R)]=\bigcup [GL_n(R),GL_n(R)]=\bigcup E_n(R)=E(R)$. 往证 $\dfrac{GL(R)}{E(R)}\underset \varphi \simeq K_1(R)$. 换言之, 对任意有限生成投射模 $P$, $[\mathrm{Aut}(P)]\to \dfrac{GL(R)}{E(R)}\overset\varphi \to K_1(R),\quad  f\mapsto [P,f]$ 是同构.\par
+        对任意有限生成投射模的自同构 $(P,f)$, 取同构 $\sigma:P\oplus Q\simeq R^n$. 兹断言以下复合的恒等映射良定义, 即无关乎 $Q$, $n$ 与 $\sigma$ 之选取.
+        % https://q.uiver.app/#q=WzAsMTAsWzEsMCwiUCJdLFsxLDEsIlAiXSxbMiwwLCJQXFxvcGx1cyBRIl0sWzIsMSwiUFxcb3BsdXMgUSJdLFszLDAsIlJebiJdLFszLDEsIlJebiJdLFswLDAsIlxcLCJdLFswLDEsIlxcLCJdLFs1LDAsIlxcLCJdLFs1LDEsIlxcLCJdLFswLDEsImYiXSxbMiwzLCJmXFxvcGx1cyBnIl0sWzAsMiwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbMSwzLCIiLDEseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsyLDQsIlxcc2lnbWEiXSxbMyw1LCJcXHNpZ21hIl0sWzQsNSwiXFxzaWdtYShmXFxvcGx1cyBnKVxcc2lnbWFeey0xfSJdLFs2LDcsIltQLGZdIiwyLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzgsOSwiW1AsZl0uIiwwLHsic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoibm9uZSJ9LCJoZWFkIjp7Im5hbWUiOiJub25lIn19fV0sWzE3LDEwLCJcXHZhcnBoaV57LTF9IiwwLHsic2hvcnRlbiI6eyJzb3VyY2UiOjEwLCJ0YXJnZXQiOjMwfSwic3R5bGUiOnsiYm9keSI6eyJuYW1lIjoiZGFzaGVkIn19fV0sWzE2LDE4LCIiLDAseyJzaG9ydGVuIjp7InNvdXJjZSI6ODB9fV1d
+        \[\begin{tikzcd}
+                {\,} & P & {P\oplus Q} & {R^n} && {\,} \\
+                {\,} & P & {P\oplus Q} & {R^n} && {\,}
+                \arrow[""{name=0, anchor=center, inner sep=0}, "f", from=1-2, to=2-2]
+                \arrow["{f\oplus g}", from=1-3, to=2-3]
+                \arrow[hook, from=1-2, to=1-3]
+                \arrow[hook, from=2-2, to=2-3]
+                \arrow["\sigma", from=1-3, to=1-4]
+                \arrow["\sigma", from=2-3, to=2-4]
+                \arrow[""{name=1, anchor=center, inner sep=0}, "{\sigma(f\oplus g)\sigma^{-1}}", from=1-4, to=2-4]
+                \arrow[""{name=2, anchor=center, inner sep=0}, "{[P,f]}"', draw=none, from=1-1, to=2-1]
+                \arrow[""{name=3, anchor=center, inner sep=0}, "{[P,f].}", draw=none, from=1-6, to=2-6]
+                \arrow["{}", shorten <=3pt, shorten >=10pt, Rightarrow, dashed, from=2, to=0]
+                \arrow[shorten <=51pt, Rightarrow, from=1, to=3]
+            \end{tikzcd}\]
+        以上交换图中, 直线单箭头均为同构.
+        \begin{itemize}
+            \item 由于 $K_1(R)$ 交换, 故 $\varphi\Big(\sigma(f\oplus g)\sigma^{-1}\Big)=\varphi(\sigma)\varphi (\sigma^{-1})\varphi (f\oplus g)=\varphi(f\oplus g)$.
+            \item 若将 $Q$ 替换作 $Q\oplus R^k$, 并考虑 $P\oplus Q\oplus R^k$ 的自同构 $f\oplus g\oplus \mathrm{id}_{R^k}$, 则像不变. 结合命题 \ref{PQprojsummand} 知像与 $Q$, $n$ 之选取无关.
+        \end{itemize}
+    \end{proof}
+\end{proposition}
+
+\begin{remark}
+    $K_1(R)=\dfrac{GL(R)}{[GL(R),GL(R)]}=H_1(GL(R),\mathbb Z)$ 无非稳定线性群的交换化.
+\end{remark}
+
+\begin{proposition}[$K_1(-)$ 的函子性]
+    $K_1:\mathrm{Ring}\to \mathrm{Ab}$ 为(协变)函子.
+\end{proposition}
+
+\begin{proposition}
+    对环 $R$ 与任意正整数 $m,n$, 有同构 $K_1(M_n(R))\simeq K_1(M_m(R))$.
+    \begin{proof}
+        Morita 等价给出相同的 $K_1$ 群. 实际上, $GL(M_n(R))=GL(GL_n(R))=GL(R)$, 再对两端交换化即可.
+    \end{proof}
+\end{proposition}
+
+\begin{proposition}
+    $K_1(R\times S)\simeq K_1(R)\oplus K_1(S)$. 证明同上.
+\end{proposition}
+
+
+
+\end{document}

@@ -1,0 +1,260 @@
+\documentclass{MainStyle}
+
+\usepackage{amsthm, amsfonts, amsmath, amssymb, quiver, mathrsfs, newclude, tikz-cd, ctex}
+
+% Customise href Colours.
+\usepackage[colorlinks = true,
+            linkcolor = blue,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+
+\newcommand{\changeurlcolor}[1]{\hypersetup{urlcolor=#1}}       
+
+\newcommand*{\name}{张陈成}
+\newcommand*{\id}{023071910029}
+\newcommand*{\course}{$K$-理论笔记}
+\newcommand*{\assignment}{稳定自由模}
+
+\theoremstyle{definition}
+\newtheorem{example}{例}
+
+\theoremstyle{definition}
+\newtheorem{slogan}{原旨}
+
+\theoremstyle{definition}
+\newtheorem{definition}{定义}
+
+\theoremstyle{definition}
+\newtheorem{proposition}{命题}
+
+\theoremstyle{definition}
+\newtheorem{problem}{问题}
+
+\theoremstyle{definition}
+\newtheorem{assumption}{假定}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}
+
+\theoremstyle{remark}
+\newtheorem{remark}{注}
+
+\theoremstyle{remark}
+\newtheorem{lemma}{引理}
+\allowdisplaybreaks
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{稳定自由模}
+\begin{definition}[有限长度]
+    称 $R$-模 $X$ 具有有限长度, 若存在合成列 $X=X_0\supseteq X_1\supseteq X_2\supseteq \cdots \supseteq X_n=0$ 使得每一 $X_{k-1}/X_k$ 均为单模.
+\end{definition}
+
+\begin{proposition}
+    Jordan–Hölder 定理表明有限长度模的合成列给出恒定的单模列, 至多相差一个置换. 因此对有限长度模的正合列 $0\to L\to M\to N\to 0$, 有 $l(L)+l(N)=l(M)$. 对有限长度的 $R$-模 $M$ 以及任取 $f\in \mathrm{End}_R(M)$, 有
+    \begin{align*}
+        l(\mathrm{ker}(f))+l(\mathrm{im}(f))=l(M).
+    \end{align*}
+    从而 $f$ 是单自同态 $\Longleftrightarrow$ $f$ 是满自同态 $\Longleftrightarrow$ $f$ 是自同构.
+\end{proposition}
+
+\begin{definition}[自由模的秩]
+    自由模的长度为秩.
+\end{definition}
+
+\begin{example}
+    除环上的模(线性空间)均自由. 对除环 $D$ 上的代数 $A$ 以及自由 $A$-模 $M$, 总有
+    \begin{equation*}
+        \mathrm{rank}_A(M)=\dfrac{\dim_D(M)}{\dim_D(A)}.
+    \end{equation*}
+    一般的, 单 Artin 代数 $R$ 形如 $M_n(D)$, 从而自由 $R$-模是 $\mathrm{rank}_R\cdot n^2$ 维线性空间.
+\end{example}
+
+\begin{proposition}
+    任意模为自由模之商模.
+    \begin{proof}
+        此前已证明, 模范畴到集合范畴的自由-遗忘伴随给出自由模到模的满态射(余单位). 具体地, 取(左) $R$-模 $M$, 则
+        \begin{align*}
+            M\simeq \bigoplus_{m\in M} \langle m\rangle \Big/\{R\text{ 作用给出的商关系}\}\qquad (\simeq FU(M)/\sim ).
+        \end{align*}
+    \end{proof}
+\end{proposition}
+
+\begin{definition}[指数不变环]
+    环 $R$ 指数不变, 当且仅当 $\bigoplus_{\kappa_i}R$ 在不同的基数下是不同构的自由 $R$-模.
+\end{definition}
+
+\begin{proposition}
+    $R$ 指数不变, 若存在 $R$ 到除环的非平凡环同态 $R\to D$.
+    \begin{proof}
+        此时 $D$ 为 $R$-模, 遂有函子
+        \begin{align*}
+            D\otimes_R-:R\mathrm{-FreeMod}\to D\mathrm{Vect},\quad
+            V\mapsto D\otimes_R V.
+        \end{align*}
+        此时自由 $R$-模的基对应线性空间 $D\otimes_RV$ 的基. 显然 $R$ 指数不变.
+    \end{proof}
+\end{proposition}
+
+\begin{example}
+    以下是指数不变环的例子.
+    \begin{enumerate}
+        \item 取交换环 $A$ 以及极大理想 $\mathfrak m$, 则有环同态 $R\to R/\mathfrak m$. 从而交换环指数不变.
+        \item 一切交换环上的群代数 $k[G]$ 具有环同态 $g\mapsto g^0$, 从而指数不变.
+        \item 有限维代数为指数不变环, 考虑维度即可.
+    \end{enumerate}
+\end{example}
+
+\begin{example}
+    给定环 $R$ 与任意无穷基数 $\kappa$, 记自同态环 $\Gamma:=\mathrm{End}_R\left(\bigoplus_{\mathbb N}R\right)$. 则对任意 $m<\omega$, 有
+    \begin{equation}
+        \Gamma^m\simeq\mathrm{Hom}_R\left(\bigoplus_{\mathbb N}R,\bigoplus_{m}\left(\bigoplus_{\mathbb N}R\right)\right)\simeq \mathrm{Hom}_R\left(\bigoplus_{\mathbb N}R,\bigoplus_{\mathbb N}R\right)=\Gamma.
+    \end{equation}
+    故 $\Gamma$ 不是指数不变环.
+\end{example}
+
+\begin{definition}[稳定自由模]
+    称 $P$ 为稳定自由 $R$-模, 若存在基数 $\kappa, \lambda$ 使得有正合列
+    \begin{align}
+        0\to P\to R^\lambda\to R^\kappa\to 0.
+    \end{align}
+\end{definition}
+
+\begin{remark}
+    结合代数学常识, 自由模 $\underset\neq\implies$ 稳定自由模 $\underset\neq\implies$ 投射模 $\underset\neq\implies$ 平坦模 $\underset\neq\implies$ 无扰模.
+\end{remark}
+
+\begin{proposition}
+    若上式中 $\lambda\geq \omega$ 且 $\kappa<\omega$, 则 $P\simeq R^\lambda$.
+    \begin{proof}
+        若存在 $n\in \mathbb N$ 与 $\lambda\geq \omega$ 使得 $R^n\oplus P\overset\varphi \simeq R^\lambda$, 则有包含关系
+        \begin{align*}
+            \varphi(R^n)\hookrightarrow R^m\hookrightarrow R^\lambda.
+        \end{align*}
+        考虑直和 $R^\lambda = R^m\oplus Q$ 以及 $\lambda=\lambda+\omega=\lambda\cdot \omega$, 则有
+        \begin{align*}
+            P\simeq Q\oplus (R^m\cap \varphi(P))\simeq R^\lambda\oplus Q\oplus R^\omega \oplus (R^m\cap \varphi (P)).
+        \end{align*}
+        以下仅需证明 $R^\lambda\oplus Q\simeq R^\lambda$ 以及 $R^\omega\oplus (R^m\cap \varphi (P))\simeq R^\omega$. 此处仅关注前者. 注意到
+        \begin{align*}
+            Q\oplus R^\lambda & \simeq Q\oplus R^{\omega \cdot \lambda}                                                                               \\
+                              & \simeq Q\oplus \underset{\text{可数和}}{\underbrace{(R^m\oplus Q)\oplus(R^m\oplus Q)\oplus(R^m\oplus Q)\oplus\cdots}} \\
+                              & \simeq \underset{\text{可数和}}{\underbrace{( Q\oplus R^m)\oplus (Q\oplus R^m)\oplus (Q\oplus R^m)\oplus Q\cdots}}    \\
+                              & \simeq R^{\omega\cdot \lambda}\simeq R^\lambda.
+        \end{align*}
+        从而得证. 同理, 若正合列中 $\lambda>\kappa\geq \omega$, 则 $P\simeq R^\lambda$.
+    \end{proof}
+\end{proposition}
+
+\begin{remark}
+    因此我们通常关心有限生成的稳定自由模.
+\end{remark}
+
+\begin{proposition}\label{PR=RR}
+    给定交换环 $R$, 则 $P\oplus R\simeq R^2$ 当且仅当 $P\simeq R$.
+    \begin{proof}
+        在 $P\oplus R\simeq R^2$ 两侧作用二次外微分, 依照 Künneth 定理\footnote{交换环上有等式 $\bigwedge^n(M\oplus N)=\bigoplus_{0\leq k\leq n}\bigwedge^i(M)\otimes_R\bigwedge^{n-k}(N)$.}有
+        \begin{align*}
+            \bigwedge^2(P\oplus R)\simeq \bigwedge ^2(P)\oplus P\simeq R=\bigwedge^2(R\oplus R).
+        \end{align*}
+        在上式两端作用 $\bigwedge^2$, 直接有 $\bigwedge^2(P)=0$. 因此 $P\simeq R$.
+    \end{proof}
+\end{proposition}
+
+\begin{remark}
+    类似地, 简单应用伴随矩阵可证明 $R^n\oplus P\simeq R^{n+1}\Leftrightarrow P\simeq R$. 命题 \ref{PR=RR} 无法推广至非交换情形. 同时, 也无法将命题 \ref{PR=RR} 推广至 $R^3\simeq R\oplus P\implies P\simeq R^2$.
+\end{remark}
+
+
+\begin{proposition}
+    考虑 $R:=\mathbb R[X,Y,Z]/(X^2+Y^2+Z^2-1)$, 置 $P:=\{(F,G,H)\in R^3\mid FX+GY+HZ=0\}$. 则 $R\oplus P\simeq R^3$, 但 $P\not\simeq R^2$.
+    \begin{proof}
+        满射 $\pi:=(X,Y,Z)^T\cdot :R^3\to R$ 给出分解 $R^3\simeq P\oplus R$. 继而考虑 $\mathbb R^3$ 中向量场
+        \begin{align*}
+            R^3\ni (F,G,H):\mathbb R^3\to \mathbb R^3,\quad p\mapsto (F(p),G(p),H(p)).
+        \end{align*}
+        此处 $\pi$ 无非向量场 $(X,Y,Z)$ 的内积算子. 下断言 $P$ 非自由模, 若不然, 则 $P$ 的基为给出两组与 $(X,Y,Z)$ 处处垂直的连续向量场. 对任意 $(x,y,z)\in S^2$, 作为 $P$-基的向量场与 $(X,Y,Z)$ 张成 $\mathbb R^3$. 由于 $S^2$ 上不存在非退化连续向量场(Poincaré 毛球定理), 矛盾.
+    \end{proof}
+\end{proposition}
+
+\begin{proposition}[指数不变环强条件]
+    给定环 $R$, 以下命题的强度严格递增, 即后者推出前者, 反之未必.
+    \begin{enumerate}
+        \item $R$ 是指数不变环.
+        \item 若投射模 $P$ 使得 $R^m\simeq R^n\oplus P$ 对某些 $m,n\in \mathbb Z$ 成立, 则 $m\geq n$. \par
+              等价地, 秩 $n$ 的自由模无法由 $m<n$ 个元素生成. 此处商映射 $R^m\to R^n$ 给出可裂短正合列 $0\to K\to R^m\to R^n\to 0$. 由于 $R^n$ 投射, 故存在投射模的直和分解 $R^m\simeq R^n\oplus P$.
+        \item 若存在投射模 $P$ 使得 $R^n\simeq R^n\oplus P$, 则 $P=0$. \par
+              等价地, 任意生成 $R^n$ 的 $n$ 个元素都是自由的.
+        \item 对任意 $r\in R$, 存在 $x\in R$ 使得 $rxr=r$.
+    \end{enumerate}
+    以上四条等价于
+    \begin{enumerate}
+        \item 对 $X,Y\in R^{m\times n}$, 若 $X^TY$ 与 $YX^T$ 均为单位阵, 则 $m=n$.
+        \item 对 $X,Y\in R^{m\times n}$, 若 $X^TY$ 为单位阵, 则 $m\geq n$.
+        \item 对 $X,Y\in R^{n\times n}$, 若 $X^TY$ 为单位阵, 则 $YX^T$ 亦然.
+    \end{enumerate}
+    其中, 第三条等价于中山性, 即 $R^n\overset f\twoheadrightarrow R^n\quad \implies \quad R^n\overset f\simeq R^n$.
+    % [来源] https://core.ac.uk/download/pdf/82570195.pdf
+\end{proposition}
+
+\begin{remark}
+    称 $R$ 是 Dedekind 有限的, 若单侧逆元一定是双侧逆元. 第三条表明 $GL(R)$ 是 Dedekind 有限的.
+\end{remark}
+
+\section{对偶模, 投射模的结构}
+
+\begin{definition}[对偶模]
+    定义左 $R$-模 $P$ 的对偶模为左 $R^{\mathrm{op}}$-模 $P^\ast:=\mathrm{Hom}_R(P,R)$.
+\end{definition}
+
+\begin{theorem}[对偶基定理]\label{dual-basis}
+    左 $R$-模 $P$ 是投射模, 当且仅当存在指标集 $I$ 与 $\{(x_i,f_i)\in P\times P^\ast \}_{i\in I}$, 使得对任意 $x\in P$ 总有限和的分解\footnote{若将 $x$ 写作 $\sum_{i\in I}a_i \cdot x_i$ 之有限和形式, 则分解不必唯一; 显然, 分解唯一当且仅当 $P$ 是自由模.}
+    \begin{align*}
+        x=\sum_{i\in I}f_i(x)\cdot x_i.
+    \end{align*}
+    \begin{proof}
+        若 $\{x_i\}_{i\in I}$ 与 $\{f_i\}_{i\in I}$ 既定, 今考虑满态射
+        \begin{align*}
+            \varphi: \bigoplus_{i\in I}Re_i\to P, \quad \sum r_i e_i\mapsto \sum r_i a_i.
+        \end{align*}
+        可检验 $\varphi$ 的右逆为
+        \begin{align*}
+            \mu:P\to \bigoplus_{i\in I}Re_i,\quad x\mapsto \sum f_i(x)e_i.
+        \end{align*}
+        此处 $\varphi(\mu(x))=\sum \varphi(f_i(x)e_i)=\sum f_i(x)e_i=x$. 由 $\varphi$ 可裂满知 $P$ 投射. \par
+        反之, 若 $P$ 投射, 考虑某自由模到 $P$ 的可裂满态射即可构造 $\{x_i\}_{i\in I}$ 与 $\{f_i\}_{i\in I}$.
+    \end{proof}
+\end{theorem}
+
+\begin{proposition}
+    典范态射 $\varepsilon: P\to P^{\ast\ast}$ 单.
+    \begin{proof}
+        对 $x\in \ker(\varepsilon)$, 总有 $f(x)= 0$ 对一切 $f\in P^\ast$ 成立. 依照定理 \ref{dual-basis} 取对偶基, 只能有 $P=0$.
+    \end{proof}
+\end{proposition}
+
+\begin{example}[无限(可数)生成投射模不必为有限生成投射模之直和]
+    考虑区间上的实连续函数环 $R=C([0,1])$, 考虑理想 $I:=\{f\in R\mid \overline{\mathrm{supp}(f)}\subseteq (0,1]\}$. 下依次证明
+    \begin{enumerate}
+        \item $I$ 是投射 $R$-模.
+        \item 有限生成 $R$-投射模自由.
+        \item $I$ 非自由模.
+    \end{enumerate}
+    对第一条, 依照定理 \ref{dual-basis} 构造基底如下
+    \begin{align*}
+        y_0 & :=\text{ 折线段 }\quad (0,0)-(2^{-1},0)-(1,1),                                                           \\
+        y_k & :=\text{ 折线段 }\quad (0,0)-((k+3)^{-1},0)-((k+2)^{-1},1)-((k+1)^{-1},0)-(1,0)\quad (k\in \mathbb N_+).
+    \end{align*}
+    取 $x_k\in R$ 使得 $x_k^2=y_k$, 记 $f_k:x\mapsto x\cdot x_k$. 注意到 $\{y_k\}_{k\geq 0}$ 为 $(0,1]$ 的单位分解, 依定义知有限和 $x=\sum_{k\geq 0} f_k(x)\cdot x_k$ 对一切 $x\in R$ 成立. 根据定定理 \ref{dual-basis} 之刻画, $I$ 是投射 $R$-模. \par
+    对第二条, 依照 Swan 定理知 $[0,1]$ 可缩, 从而有限生成的投射模自由. $\textcolor{red}{\text{有无更直接证明?}}$\par
+    对第三条, 若 $I\simeq \bigoplus _{i\in I}Re_i$, 则 $\mathrm{Ann}_R(e_i)=(0)$, 但任意 $x\in I$ 的零化理想非零, 矛盾.
+\end{example}
+
+\begin{slogan}
+    无限生成投射模为可数生成投射模的直和.
+\end{slogan}
+
+\end{document}

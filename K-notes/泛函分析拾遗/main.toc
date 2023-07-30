@@ -1,0 +1,4 @@
+\contentsline {section}{\numberline {1}Banach 代数的极大理想}{1}{section.1}%
+\contentsline {section}{\numberline {2}谱理论}{3}{section.2}%
+\contentsline {section}{\numberline {3}$C^\ast $ 代数一览}{5}{section.3}%
+\contentsline {section}{\numberline {4}Gel'fand 对偶}{6}{section.4}%

@@ -1,0 +1,226 @@
+\documentclass{MainStyle}
+
+\usepackage{amsthm, amsfonts, amsmath, amssymb, quiver, mathrsfs, newclude, tikz-cd, ctex}
+
+% Customise href Colours.
+\usepackage[colorlinks = true,
+            linkcolor = blue,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+
+\newcommand{\changeurlcolor}[1]{\hypersetup{urlcolor=#1}}       
+
+\newcommand*{\name}{张陈成}
+\newcommand*{\id}{023071910029}
+\newcommand*{\course}{$K$-理论笔记}
+\newcommand*{\assignment}{$K_0$}
+
+\theoremstyle{definition}
+\newtheorem{example}{例}
+
+\theoremstyle{definition}
+\newtheorem{slogan}{原旨}
+
+\theoremstyle{definition}
+\newtheorem{definition}{定义}
+
+\theoremstyle{definition}
+\newtheorem{proposition}{命题}
+
+\theoremstyle{definition}
+\newtheorem{problem}{问题}
+
+\theoremstyle{definition}
+\newtheorem{assumption}{假定}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}
+
+\theoremstyle{remark}
+\newtheorem{remark}{注}
+
+\theoremstyle{remark}
+\newtheorem{lemma}{引理}
+\allowdisplaybreaks
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{环的 Grothendieck 群}
+
+\begin{definition}[$K_0$ 群]\label{K0}
+    记 $R$-$\mathrm{fpMod}$ 为有限生成 $R$-投射模全体, 即所有 $\{R^n\}_{n\in \mathbb N}$ 直和项之并. 记
+    \begin{itemize}
+        \item $\langle\cdot\rangle:\mathrm{fpMod}\to \mathrm{fpMod}/\sim $, 其中 $\langle P\rangle=\langle Q\rangle$ 当且仅当 $P\simeq Q$;
+        \item $[\cdot]:\mathrm{fpMod}\to \mathrm{fpMod}/\sim $, 其中 $[P\oplus Q]=[P]+[Q]$.
+    \end{itemize}
+    称有限生成投射模在 $[\cdot]$-商关系下生成的交换群为 $K_0(R)$. 自然地, $\langle P\rangle\to [P]$ 为良定义的映射.
+\end{definition}
+
+\begin{proposition}\label{PQprojsummand}
+    有限生成投射模 $[P]=[Q]$ 当且仅当存在 $n$, 使得 $P\oplus R^n\simeq Q\oplus R^n$.
+    \begin{proof}
+        $[P]=[Q]$ 当且仅当 $\langle P\rangle$ 与 $\langle Q \rangle$ 相差若干形如 $\langle M \rangle+\langle M\oplus N \rangle-\langle N \rangle$ 的项. 不妨设
+        \begin{align*}
+            \langle P \rangle +\sum_{i\in I} (\langle M_i \rangle+\langle M_i\oplus N_i \rangle)+\sum_{j\in J}\langle N_j \rangle=\langle Q \rangle+\sum_{j\in J} (\langle M_j \rangle+\langle M_j\oplus N_j \rangle)+\sum_{i\in I}\langle N_i \rangle.
+        \end{align*}
+        据定义, 以上等式两侧均为有限和, 其元素相差一个置换. 因此, 有同构
+        \begin{align*}
+            P\oplus\bigoplus_{i\in I}(M_i\oplus N_i)\oplus\bigoplus_{j\in J}(M_j\oplus N_j)\simeq Q\oplus\bigoplus_{i\in I}(M_i\oplus N_i)\oplus\bigoplus_{j\in J}(M_j\oplus N_j).
+        \end{align*}
+        将两侧大直和处补全作自由模即可.
+    \end{proof}
+\end{proposition}
+
+\begin{example}
+    对一列模 $M_0\supseteq M_1\supseteq \cdots \supseteq M_n=0$, 对任意 $1\leq k\leq n$ 总有 $[M_{k-1}]=[M_k]+[M_{k-1}/M_k]$. 相加得
+    \begin{align*}
+        [M]=\sum_{1\leq k\leq n}[M_{k-1}/M_k].
+    \end{align*}
+\end{example}
+
+\begin{example}
+    作长正合列 $0\to M_1\to M_2\to\cdots \to M_n\to 0$ 的满-单分解如下
+    % https://q.uiver.app/#q=WzAsMTIsWzAsMSwiMCJdLFsxLDEsIk1fMSJdLFszLDEsIk1fMiJdLFs2LDEsIlxcY2RvdHMiXSxbNywxLCJNX3tuLTF9Il0sWzksMSwiTV9uIl0sWzEwLDEsIjAiXSxbMiwyLCJLXzEiXSxbNCwwLCJLXzIiXSxbNSwxLCJNXzMiXSxbNiwyLCJcXGNkb3RzIl0sWzgsMCwiS197bi0xfSJdLFswLDFdLFszLDRdLFs0LDVdLFs1LDZdLFs3LDIsIiIsMix7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoiYm90dG9tIn19fV0sWzEsMl0sWzIsOCwiIiwyLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzIsOV0sWzksM10sWzgsOSwiIiwxLHsic3R5bGUiOnsidGFpbCI6eyJuYW1lIjoiaG9vayIsInNpZGUiOiJ0b3AifX19XSxbOSwxMCwiIiwxLHsic3R5bGUiOnsiaGVhZCI6eyJuYW1lIjoiZXBpIn19fV0sWzEwLDQsIiIsMSx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoiYm90dG9tIn19fV0sWzQsMTEsIiIsMSx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFsxMSw1LCJcXHNpbSIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzEsNywiXFxzaW1lcSIsMix7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dXQ==
+    \[\begin{tikzcd}[column sep=small]
+            &&&& {K_2} &&&& {K_{n-1}} \\
+            0 & {M_1} && {M_2} && {M_3} & \cdots & {M_{n-1}} && {M_n} & 0 \\
+            && {K_1} &&&& \cdots
+            \arrow[from=2-1, to=2-2]
+            \arrow[from=2-7, to=2-8]
+            \arrow[from=2-8, to=2-10]
+            \arrow[from=2-10, to=2-11]
+            \arrow[hook', from=3-3, to=2-4]
+            \arrow[from=2-2, to=2-4]
+            \arrow[two heads, from=2-4, to=1-5]
+            \arrow[from=2-4, to=2-6]
+            \arrow[from=2-6, to=2-7]
+            \arrow[hook, from=1-5, to=2-6]
+            \arrow[two heads, from=2-6, to=3-7]
+            \arrow[hook', from=3-7, to=2-8]
+            \arrow[two heads, from=2-8, to=1-9]
+            \arrow["\sim", hook, from=1-9, to=2-10]
+            \arrow["\simeq"', two heads, from=2-2, to=3-3]
+        \end{tikzcd}.\]
+    其中 $[K_i]+[K_{i-1}]=[M_i]$. 遂有 $\sum_{i}(-1)^i[M_i]=0$.
+\end{example}
+
+\begin{proposition}
+    环同态 $R\overset f\to S$ 诱导 $K_0$-群同态, 进而 $K_0:\mathrm{Ring}\to \mathrm{Ab}$ 是(协变)函子.
+    \begin{proof}
+        首先, 环同态诱导函子 $S\otimes_R-:R\mathrm{-Mod}\to S\mathrm{-Mod}$, 且保持直和关系
+        \begin{align*}
+            R^n\simeq (P\oplus Q)\overset {S\otimes_R-}\longrightarrow (S\otimes_R P)\oplus (S\otimes_R Q)\simeq S\otimes_R (P\oplus Q)\simeq S\otimes_R R^n\simeq \bigoplus_n(S\otimes_R R)\simeq S^n.
+        \end{align*}
+        从而 $S\otimes_R-:R\mathrm{-fpMod}\to S\mathrm{-fpMod}$ 良定义. 再有 $K_0$ 将模直和映作加法, 保持加法单位 $0$ 与恒等映射 $R\overset{\mathrm{id}}{\to}R$. $K_0$ 同样保持复合运算, 因为任意 $R\overset f\to S\overset g\to T$ 定义自然同构
+        \begin{align*}
+            T\otimes_S(S\otimes_R-)\simeq (T\times_S S)\otimes_R-\simeq T\otimes_S-.
+        \end{align*}
+    \end{proof}
+\end{proposition}
+
+\begin{remark}
+    特别地, $K_0(R\times S)\simeq K_0(R)\oplus K_0(S)$.
+\end{remark}
+
+\begin{proposition}
+    满态射 $R\overset f\twoheadrightarrow
+        S$ 给出满同态 $\langle P\rangle\mapsto \left\langle \dfrac P{(\ker f)\cdot P}\right\rangle$, 且 $S$-模范畴是 $R$-模范畴的全子范畴.
+    \begin{proof}
+        后半句推出前半句. 记拉回 $f^\ast$ 给出模范畴间的函子如下
+        % https://q.uiver.app/#q=WzAsOCxbMiwxLCJYIl0sWzMsMSwiWSJdLFsxLDEsIlNcXG1hdGhybXstTW9kfSJdLFsxLDAsIlJcXG1hdGhybXstTW9kfSJdLFswLDAsIlIiXSxbMCwxLCJTIl0sWzIsMCwiZl5cXGFzdCBYIl0sWzMsMCwiZl5cXGFzdCBYIl0sWzQsNSwiZiIsMCx7InN0eWxlIjp7ImhlYWQiOnsibmFtZSI6ImVwaSJ9fX1dLFsyLDMsImZeXFxhc3QiLDJdLFswLDZdLFsxLDddLFswLDEsIlxcdmFycGhpIiwyXSxbNiw3LCJmXlxcYXN0IFxcdmFycGhpICJdLFsxMiwxMywiIiwyLHsic2hvcnRlbiI6eyJzb3VyY2UiOjIwLCJ0YXJnZXQiOjIwfX1dXQ==
+        \[\begin{tikzcd}
+                R & {R\mathrm{-Mod}} & {f^\ast X} & {f^\ast X} \\
+                S & {S\mathrm{-Mod}} & X & Y
+                \arrow["f", two heads, from=1-1, to=2-1]
+                \arrow["{f^\ast}"', from=2-2, to=1-2]
+                \arrow[from=2-3, to=1-3]
+                \arrow[from=2-4, to=1-4]
+                \arrow[""{name=0, anchor=center, inner sep=0}, "\varphi"', from=2-3, to=2-4]
+                \arrow[""{name=1, anchor=center, inner sep=0}, "{f^\ast \varphi }", from=1-3, to=1-4]
+                \arrow[shorten <=4pt, shorten >=4pt, Rightarrow, from=0, to=1]
+            \end{tikzcd}.\]
+        若 $f$ 满, 下仅需证明 $f^\ast\varphi $ 是 $S$-模同态的. 取任意 $x\in X$ 诱导的同态 $\varphi_x$ 如下
+        % https://q.uiver.app/#q=WzAsNixbMSwxLCJTXFx0aW1lcyBTIl0sWzIsMSwiWSJdLFsxLDAsIihzXzEsc18yKSJdLFsyLDAsInNfMSAoZl5cXGFzdFxcdmFycGhpKSAoc18yIHgpIl0sWzEsMiwiU1xcb3RpbWVzIF9SUyJdLFswLDAsIlhcXG5pIHg6Il0sWzAsNCwiXFxpb3RhIiwyXSxbMiwzLCIiLDIseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJtYXBzIHRvIn19fV0sWzQsMSwiXFx2YXJwaGkgX3giLDJdLFswLDEsIlxcUGhpX3giXV0=
+        \[\begin{tikzcd}
+                {X\ni x:} & {(s_1,s_2)} & {s_1 (f^\ast\varphi) (s_2 x)} \\
+                & {S\times S} & Y \\
+                & {S\otimes _RS}
+                \arrow["\iota"', from=2-2, to=3-2]
+                \arrow[maps to, from=1-2, to=1-3]
+                \arrow["{\varphi _x}"', from=3-2, to=2-3]
+                \arrow["{\Phi_x}", from=2-2, to=2-3]
+            \end{tikzcd}\]
+        而 $(s_1,s_2)\mapsto s_1s_2\otimes_R 1$ 与 $(s_1,s_2)\mapsto 1\otimes_R s_1s_2 $ 诱导相同的 $S\to  S\otimes_R S$ 同态. 因此
+        \begin{align*}
+            s(f^\ast \varphi )(1\cdot x)=1\cdot (f^\ast \varphi)(s\cdot x).
+        \end{align*}
+    \end{proof}
+\end{proposition}
+
+\begin{remark}
+    以下两命题之应当并入正合范畴, 暂时舍去.
+    \vspace{-8mm}
+    \begin{quote}
+        \begin{proposition}[$K_0$ 的$\textcolor{red}{\text{(准?)}}$正合性]
+            $K_0$ 保持短正合列.
+            \begin{proof}
+                短正合列 $0\to L\overset\varphi\to R\overset\psi\to S\to 0$ 在 $K_0$ 下为链复形. 下只需证明 $\mathrm{im}(K_0(\varphi))\subseteq \ker(K_0(\psi))$. 任取 $R$-模 $P$ 使得 $S\otimes_R P=0$, 则有 $R$-模正合列
+                \begin{align*}
+                    0\to K\to R\to S\to C\to 0.
+                \end{align*}
+                由于 $-\otimes_RP$ 正合, 从而 $K\otimes _R P\simeq R\otimes_R P\simeq P$, $C\otimes _RP=0$.
+            \end{proof}
+        \end{proposition}
+
+        \begin{proposition}
+            (复合的)环恒等态射 $S\overset g\to R\overset f\to S$ 等价于 $R\overset f\to S$ 是收缩. 此时正合列
+            \begin{align*}
+                0\to \ker K_0(f) \longrightarrow K_0(R)\overset{K_0(f)}\longrightarrow K_0(S)\to 0
+            \end{align*}
+            可裂.
+            \begin{proof}
+                $\textcolor{red}{\text{能否直接构造 $S\times S'$, 其 $K_0$ 群与 $R$ 相同?}}$.
+            \end{proof}
+        \end{proposition}
+    \end{quote}
+\end{remark}
+
+
+
+\begin{example}
+    若满态射 $R\overset f\twoheadrightarrow S$ 之核在 $R^\ast -1_R$ 中, 则 $K_0(f)$ 为同构.
+\end{example}
+
+\begin{example}
+    定理 \ref{He-PID} 表明主理想整环的有限生成投射模为有限秩的自由模, 故其 $K_0$ 群同构于 $\mathbb Z$.
+\end{example}
+
+\begin{proposition}
+    考虑环 $R$ 与 $n$-阶矩阵环 $M_n(R)$. 则 $K_0(M_n(R))\simeq K_0(M_{n'}(R))$ 对一切 $n,n'\in \mathbb N_+$ 成立.
+    \begin{proof}
+        易验证 $M_n(R)$-模范畴与 $R$-模范畴等价(Morita 等价). 具体而言, 函子
+        \begin{align*}
+            R^n\otimes _R- :R\mathrm{-Mod}\to  M_n(R)\mathrm{-Mod},\qquad (R^n)^T\otimes_{M_n(R)}-:M_n(R)\mathrm{-Mod}\to R\mathrm{-Mod}
+        \end{align*}
+        给出 $M_n(R)$-模范畴与 $R$-模范畴的伴随等价, 故 $K_0$ 群同构. 进而 $K_0(M_n(R))\simeq K_0(M_{n'}(R))$.
+    \end{proof}
+\end{proposition}
+
+\begin{example}[Grothendieck 群]
+    对特殊的环, $K_0$ 可赋予环结构, 例如以下例子.
+    \begin{enumerate}
+        \item 交换环 $R$ 的模范畴允许(有限)张量积. 定义 $K_0(R)$ 上乘法(可交换)如下
+              \begin{align*}
+                  [P\otimes_R Q]=[P]\cdot [Q].
+              \end{align*}
+        \item 若交换环 $k$ 上的代数 $H$ 为双代数\footnote{存在特定的乘法同态 $H\overset \Delta \longrightarrow H\otimes_k H$ 与 $H\overset \varepsilon \to k$. 如群代数($\Delta(g)= g\otimes g$, $\varepsilon(g)=1$), Lie 代数($\Delta(x)=1\otimes x+x\otimes 1$, $\varepsilon(x)=0$), 量子群等.} 则 $H\otimes_k H$-模是 $H$-模. 换言之, $H$-模范畴允许 $k$-张量积.
+        \item 有限维复半单 Lie 代数 $\mathfrak g$ 之模范畴等价于其包络代数 $\mathcal U(\mathfrak g)$ 之模范畴. 可以采用特征标及 Hopf-对证明, 有限维 $\mathcal U(\mathfrak g)$-模范畴半单, 从而 $\langle P\rangle$ 足以给出 $K_0$-群. 量子化情形亦然. 相应的张量积分解由晶体基给出.
+    \end{enumerate}
+\end{example}
+
+
+
+\end{document}

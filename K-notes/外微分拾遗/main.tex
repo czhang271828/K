@@ -1,0 +1,242 @@
+\documentclass{MainStyle}
+
+\usepackage{amsthm, amsfonts, amsmath, amssymb, quiver, mathrsfs, newclude, tikz-cd, ctex}
+
+% Customise href Colours.
+\usepackage[colorlinks = true,
+            linkcolor = blue,
+            urlcolor  = blue,
+            citecolor = blue,
+            anchorcolor = blue]{hyperref}
+
+\newcommand{\changeurlcolor}[1]{\hypersetup{urlcolor=#1}}       
+
+\newcommand*{\name}{张陈成}
+\newcommand*{\id}{023071910029}
+\newcommand*{\course}{$K$-理论笔记}
+\newcommand*{\assignment}{外微分拾遗}
+
+\theoremstyle{definition}
+\newtheorem{example}{例}
+
+\theoremstyle{definition}
+\newtheorem{slogan}{原旨}
+
+\theoremstyle{definition}
+\newtheorem{definition}{定义}
+
+\theoremstyle{definition}
+\newtheorem{proposition}{命题}
+
+\theoremstyle{definition}
+\newtheorem{problem}{问题}
+
+\theoremstyle{definition}
+\newtheorem{assumption}{假定}
+
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}
+
+\theoremstyle{remark}
+\newtheorem{remark}{注}
+
+\theoremstyle{remark}
+\newtheorem{lemma}{引理}
+\allowdisplaybreaks
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{模的外积}
+
+\begin{definition}[对称(反对称)函数]
+    给定 $R$-模 $M$ 与 $N$. 今取定 $m\in \mathbb N_{\geq 1}$ 以及态射 $M^m\overset f\longrightarrow N$.
+    \begin{enumerate}
+        \item 称 $f$ 是对称的, 若 $f(x_1,x_2,\ldots ,x_m)=f(x_{\sigma(1)},x_{\sigma(2)},\ldots, x_{\sigma (m)})$ 对一切置换 $\sigma\in S_m$ 成立;
+        \item 称 $f$ 是反对称的, 若 $f(x_1,x_2,\ldots ,x_m)=(-1)^\sigma f(x_{\sigma(1)},x_{\sigma(2)},\ldots, x_{\sigma (m)})$ 对一切置换 $\sigma\in S_m$ 成立;
+        \item 称 $f$ 是交错的, 若 $f$ 满足以下论断: 若存在 $i\neq j$ 使得 $x_i=x_j$, 则 $f(x_1,x_2,\ldots ,x_m)=0$.
+    \end{enumerate}
+    显然, 反对称等价于``对换改变符号'', 亦等价于交错.
+\end{definition}
+
+\begin{definition}[模的外积]
+    给定反对称态射 $M^m\overset f\longrightarrow N$, 则有如下交换图
+    % https://q.uiver.app/#q=WzAsNSxbMCwxLCJNXm0iXSxbMSwxLCJcXGJpZ290aW1lcyBebU0iXSxbMiwxLCJcXGJpZ3dlZGdlXm0oTSkiXSxbMSwyLCJOIl0sWzEsMCwiXFxtYXRocm17a2VyfShcXHRpbGRlIGYpIl0sWzAsMSwiXFxwaSJdLFsxLDMsIlxcdGlsZGUgZiIsMix7InN0eWxlIjp7ImJvZHkiOnsibmFtZSI6ImRhc2hlZCJ9fX1dLFsxLDIsImoiLDAseyJzdHlsZSI6eyJoZWFkIjp7Im5hbWUiOiJlcGkifX19XSxbMiwzLCJcXG92ZXJsaW5lIGYiLDAseyJzdHlsZSI6eyJib2R5Ijp7Im5hbWUiOiJkYXNoZWQifX19XSxbMCwzLCJmIiwyXSxbNCwxXV0=
+    \[\begin{tikzcd}
+            & {\mathrm{ker}(\tilde f)} \\
+            {M^m} & {\bigotimes ^mM} & {\bigwedge^m(M)} \\
+            & N
+            \arrow["\pi", from=2-1, to=2-2]
+            \arrow["{\tilde f}"', dashed, from=2-2, to=3-2]
+            \arrow["j", two heads, from=2-2, to=2-3]
+            \arrow["{\overline f}", dashed, from=2-3, to=3-2]
+            \arrow["f"', from=2-1, to=3-2]
+            \arrow[from=1-2, to=2-2]
+        \end{tikzcd}.\]
+    \begin{enumerate}
+        \item $\pi :M^m\to \bigotimes^m M$ 由张量积之范性质保证.
+        \item 对任意反对称态射 $f\in \mathrm{Hom}_R(M^m,N)$, 总有 $\mathrm{ker}(\tilde f)\subseteq \langle x_1\otimes \cdots \otimes x_n\mid \text{存在 }i\neq j\text{ 使得 }x_i=x_j\rangle =:J$.
+    \end{enumerate}
+    从而定义外积 $\bigwedge ^m (M):=\dfrac{\bigotimes^m M}J$. 用泛性质语言描述之, 任意 $M^m$ 出发的反对称态射通过 $\bigwedge^m(M)$ 分解.
+\end{definition}
+
+\begin{example}
+    $\bigwedge^0(M)\simeq \bigotimes^0(M)\simeq R$, $\bigwedge ^1(M)\simeq \bigotimes ^1(M)\simeq M$. 记 $I:=(x_i)_{1\leq i\leq n}$ 为 $R$ 的理想, 则 $\bigwedge^n(I)$ 为主理想.
+\end{example}
+
+\begin{proposition}
+    若 $M$ 有限生成, 记其极小生成集大小为 $n$. 则 $\bigwedge^m(M)=0$ 对一切 $m>n$ 成立.
+\end{proposition}
+
+\begin{proposition}
+    若 $\bigwedge ^n(M)=0$, 则对任意 $N\geq n$, 总有 $\bigwedge^N(M)=0$.
+\end{proposition}
+
+\begin{proposition}[自由模的秩]
+    对自由模 $R^n$, 有 $\bigwedge ^m (R^n)\simeq R^{\binom{n}{m}}$.
+\end{proposition}
+
+\begin{definition}[$\bigwedge^n$ 函子]
+    定义 $\bigwedge^n(-):R\mathrm{-Mod}\to R\mathrm{-Mod}$, 其中
+    \begin{align*}
+        \bigwedge^n(M\overset \varphi\to N) = \left[\bigwedge^n(\varphi):\bigwedge^n(M)\to \bigwedge^n(M),\quad  \sum x_1\wedge\cdots \wedge x_n\mapsto \sum \varphi (x_1)\wedge \cdots \wedge \varphi(x_n)\right].
+    \end{align*}
+    显然 $\bigwedge^n(-)$ 保持结合律以及单位元, 从而是函子.
+\end{definition}
+
+\begin{proposition}[$\bigwedge^n(-)$ 的右正合性]
+    $\bigwedge^n(-)$ 保持同构以及满射, 但不保持单射.
+    \begin{proof}
+        根据 $\bigwedge^n(-)$ 的函子性, 其保持同构. 考虑模的基底, $\bigwedge^n(-)$ 显然保持满射. 下给出 $\bigwedge^n(-)$ 不保持单射的例子. 记 $I$ 是环 $R$ 中的非主理想, 则 $I\hookrightarrow R$ 是单射, 但诱导的 $0\neq \bigwedge^2(I)\to \bigwedge^2(R)=0$ 显然不是单射.
+    \end{proof}
+\end{proposition}
+
+\begin{proposition}
+    对自由模范畴, 观察秩知 $\bigwedge^k(-)$ 保持单射与满射, 从而正合.
+\end{proposition}
+
+\begin{definition}[行列式]
+    对自由模 $R^n$, 记行列式为同构 $\det: \mathrm{End}_R(\bigwedge^n(R^n))\simeq \mathbb R$, 满足
+    \begin{align*}
+        \varphi(x)=\det(\varphi)\cdot x.
+    \end{align*}
+    依照 $\bigwedge^n(R^n)=\langle x_1\wedge \cdots \wedge x_n\rangle$, 从而 $\mathrm{End}_R(\bigwedge^n(R^n))\simeq R $ 是自然的. 注意到 $\det$ 与通常意义的行列式运算相容, 因此 $\det$ 是良定义的.
+\end{definition}
+
+
+
+\begin{proposition}[直和结构]
+    $\bigwedge ^k(M)$ 与 $\bigwedge^k(N)$ 是 $\bigwedge^k(M\oplus N)$ 的直和项.
+    \begin{proof}
+        考虑复合的恒等映射 $M\overset e\to M\oplus N\overset \pi\to M $, 由 $\bigwedge^k(-)$ 的函子性知 $\bigwedge^k(\pi)\circ \bigwedge^k(e)=\mathrm{id}_{\bigwedge^k(M)}$. 此时
+        \begin{align*}
+            \ker\left(\bigwedge^k(e)\right)\subseteq \ker\left(\bigwedge^k(\pi e)\right)=\ker\left(\mathrm{id}_{\bigwedge^k(M)}\right)=0.
+        \end{align*}
+        因此 $\bigwedge^k(e)$ 可裂单, 从而 $\bigwedge ^k(M)$ 是 $\bigwedge ^k(M\oplus N)$ 的直和项.
+    \end{proof}
+\end{proposition}
+
+\begin{theorem}[Künneth 公式]
+    对 $R$-模 $M$ 与 $N$ 以及 $n\in \mathbb N$, 有如下恒等式
+    \begin{align*}
+        \bigwedge^n(M\oplus N)\simeq \bigoplus_{0\leq k\leq n}\left(\bigwedge^k(M)\otimes \bigwedge^{n-k}(N)\right).
+    \end{align*}
+    \begin{proof}
+        先定义 $g_i:\bigwedge^k(M)\otimes \bigwedge^{n-k}(N)\to \bigwedge^n(M\oplus N)$ 为如下映射之合成
+        % https://q.uiver.app/#q=WzAsNixbMCwwLCJcXGJpZ3dlZGdlXmsoTSlcXG90aW1lcyAgXFxiaWd3ZWRnZV57bi1rfShOKSJdLFswLDEsIlxcYmlnd2VkZ2VeayhNXFxvcGx1cyBOKVxcb3RpbWVzICBcXGJpZ3dlZGdlXntuLWt9KE1cXG9wbHVzIE4pIl0sWzAsMiwiXFxiaWd3ZWRnZV5uKE1cXG9wbHVzIE4pIl0sWzEsMCwiKG1fMVxcd2VkZ2UgXFxjZG90cyBcXHdlZGdlIG1faylcXG90aW1lcyAobl97MX1cXHdlZGdlIFxcY2RvdHMgXFx3ZWRnZSBuX3tuLWt9KSJdLFsxLDEsIigobV8xLDApXFx3ZWRnZSBcXGNkb3RzIFxcd2VkZ2UgKG1faywwKSlcXG90aW1lcyAoKDAsbl97MX0pXFx3ZWRnZSBcXGNkb3RzIFxcd2VkZ2UgKDAsbl97bi1rfSkpIl0sWzEsMiwiKG1fMSwwKVxcd2VkZ2UgXFxjZG90cyBcXHdlZGdlIChtX2ssMClcXHdlZGdlKDAsbl97MX0pXFx3ZWRnZSBcXGNkb3RzIFxcd2VkZ2UgKDAsbl97bi1rfSkiXSxbMCwxLCIiLDAseyJzdHlsZSI6eyJ0YWlsIjp7Im5hbWUiOiJob29rIiwic2lkZSI6InRvcCJ9fX1dLFsxLDJdLFszLDQsIiIsMCx7InN0eWxlIjp7InRhaWwiOnsibmFtZSI6Imhvb2siLCJzaWRlIjoidG9wIn19fV0sWzQsNV1d
+        \[\begin{tikzcd}
+                {\bigwedge^k(M)\otimes  \bigwedge^{n-k}(N)} & {(m_1\wedge \cdots \wedge m_k)\otimes (n_{1}\wedge \cdots \wedge n_{n-k})} \\
+                {\bigwedge^k(M\oplus N)\otimes  \bigwedge^{n-k}(M\oplus N)} & {((m_1,0)\wedge \cdots \wedge (m_k,0))\otimes ((0,n_{1})\wedge \cdots \wedge (0,n_{n-k}))} \\
+                {\bigwedge^n(M\oplus N)} & {(m_1,0)\wedge \cdots \wedge (m_k,0)\wedge(0,n_{1})\wedge \cdots \wedge (0,n_{n-k})}
+                \arrow[hook, from=1-1, to=2-1]
+                \arrow[from=2-1, to=3-1]
+                \arrow[hook, from=1-2, to=2-2]
+                \arrow[from=2-2, to=3-2]
+            \end{tikzcd}.\]
+        上述态射自然是良定义的. 反之, 将 $\bigwedge ^n(M\oplus N)$ 拆散作 $2^n$ 项求和, 得
+        \begin{align*}
+            (m_1,n_1)\wedge \cdots \wedge (m_n,n_n)=\sum _{0\leq k\leq n}(-1)^{\ast }(m_{i_1},0)\wedge \cdots \wedge (m_{i_k},0)\wedge (0,n_{j_1})\wedge\cdots \wedge (0,n_{j_{n-k}}).
+        \end{align*}
+        由此定义 $f_k:\bigwedge ^n(M\oplus N)\to \bigwedge ^k(M)\otimes \bigwedge ^{n-k}(N)$. 往后仅需检验
+        \begin{align*}
+            f_ig_j=\delta_{i,j}\cdot \mathrm{id}_{\bigwedge ^i(M)\otimes \bigwedge ^{n-i}(N)},\qquad \sum_{0\leq k\leq n} g_kf_k=\mathrm{id}_{\bigwedge ^n(M\oplus N)}.
+        \end{align*}
+        检验步骤略去.
+    \end{proof}
+\end{theorem}
+
+\begin{remark}
+    类似地, 有多元情形
+    \begin{align*}
+        \bigwedge^n(M_1\oplus\cdots \oplus M_m)\simeq \bigoplus_{k_1+\cdots +k_m=n}\left(\bigwedge^{k_1}(M_1)\otimes\cdots \otimes \bigwedge^{k_m}(M_m)\right).
+    \end{align*}
+\end{remark}
+
+\section{插曲: PID 上有限生成模的结构}
+
+\begin{proposition}
+    PID 上有限生成无扰模自由.
+    \begin{proof}
+        主理想整环系 Dedekind 整环, 从而无扰模平坦. 依照 Noether 性, 有限生成模有限展示, 从而是有限生成投射模. 显然 PID 上投射模自由.
+    \end{proof}
+\end{proposition}
+
+\begin{remark}
+    记 $\mathrm{Tor}(X)$ 为 $X$ 的挠子模, 则对 PID 上有限生成模 $X$ 总有正合列
+    \begin{align*}
+        0\to \mathrm{Tor}(X)\to X\to \dfrac{X}{\mathrm{Tor}(X)}\to 0.
+    \end{align*}
+    由于 $\dfrac{X}{\mathrm{Tor}(X)}$ 无扰动, 故自由, 遂正合列可裂. 因此 $X\simeq \mathrm{Tor}(X)\oplus \dfrac{X}{\mathrm{Tor}(X)}$.
+\end{remark}
+
+\begin{proposition}[初等因子组]
+    取 PID $R$ 上有限生成模 $X$. 若生成 $M=\mathrm{Tor}(X)$ 至少需要 $n$ 个元素, 则存在有限序列构成的数组 $(e_1,\ldots, e_n)$, 使得
+    \begin{align*}
+        M\simeq \dfrac{R}{(p^{e_1})}\times \cdots \times \dfrac{R}{(p^{e_n})},\quad e_k=(e_k^1,\ldots, e_k^m,0,\ldots), \quad p^{e_k}:=\prod p_k^{e_k^i},\quad e_1\leq e_2\leq\cdots \leq e_n.
+    \end{align*}
+    定义 $e_k\leq e_{k+1}$ 当且仅当 $e_k^{i}\leq e_{k+1}^i$ 对任意 $i$ 成立.
+    \begin{proof}
+        取 $M$ 的生成元 $\{m_1,\ldots, m_n\}$, 则存在极小的 $e=e_0$ 使得 $p^e m_i=0$ 对任意 $i$ 成立. 换言之, $p^e\cdot M=0$. 此时不妨设零化 $y_n$ 所需的极小的 $e$ 同为 $e_0$. 此时 $\dfrac{M}{\langle y_n\rangle }\simeq \dfrac{R}{(p^{e_0})}$ 为循环模. 遂有
+        % https://q.uiver.app/#q=WzAsMTAsWzAsMCwiMCJdLFsxLDAsIlxcbGFuZ2xlIHlfblxccmFuZ2xlIl0sWzIsMCwiTSJdLFszLDAsIlxcZGZyYWN7TX17XFxsYW5nbGUgeV9uXFxyYW5nbGV9Il0sWzQsMCwiMCJdLFszLDEsIlxcZGZyYWN7Un17KHBee2VfMH0pfSJdLFsyLDEsIk0iXSxbNCwxLCIwIl0sWzAsMSwiMCJdLFsxLDEsIlxcYnVsbGV0Il0sWzAsMV0sWzEsMl0sWzIsM10sWzMsNF0sWzYsNV0sWzUsN10sWzgsOV0sWzksNl0sWzIsNiwiIiwxLHsibGV2ZWwiOjIsInN0eWxlIjp7ImhlYWQiOnsibmFtZSI6Im5vbmUifX19XSxbMyw1LCJcXHNpbSJdXQ==
+        \[\begin{tikzcd}
+                0 & {\langle y_n\rangle} & M & {\dfrac{M}{\langle y_n\rangle}} & 0 \\
+                0 & \bullet & M & {\dfrac{R}{(p^{e_0})}} & 0
+                \arrow[from=1-1, to=1-2]
+                \arrow[from=1-2, to=1-3]
+                \arrow[from=1-3, to=1-4]
+                \arrow[from=1-4, to=1-5]
+                \arrow[from=2-3, to=2-4]
+                \arrow[from=2-4, to=2-5]
+                \arrow[from=2-1, to=2-2]
+                \arrow[from=2-2, to=2-3]
+                \arrow[Rightarrow, no head, from=1-3, to=2-3]
+                \arrow["\sim", from=1-4, to=2-4]
+            \end{tikzcd}.\]
+        逐次归纳即可.
+    \end{proof}
+\end{proposition}
+
+\begin{proposition}
+    如上选取的 $(e_1,\ldots ,e_n)$ 是唯一的. 实际上, $\mathrm{ann}_R(\bigwedge ^k(M))=(p^{e_k})$.
+    \begin{proof}
+        依照 Künneth 公式, 有
+        \begin{align*}
+            \bigwedge^k(M)\simeq \bigoplus_{i_1+\cdots i_n=k}\left(\bigwedge^{i_1}\left(\dfrac{R}{(p^{e_1})}\right)\otimes \cdots \otimes \bigwedge^{i_n}\left(\dfrac{R}{(p^{e_n})}\right)\right)\simeq \bigoplus \left(\dfrac{R}{(p^{e_{j_1}})}\otimes\cdots \otimes \dfrac{R}{(p^{e_{i_k}})}\right).
+        \end{align*}
+        最后一处等式是因为对主生成 $R$-模 $N$, 总有 $\bigwedge^2(N)=0$. 再依照 $\dfrac{R}{I}\otimes \dfrac{R}{J}\simeq \dfrac{R}{I+J}$, 遂有
+        \begin{align*}
+            \bigwedge^k(M)\simeq \bigoplus \dfrac{R}{(p^{e_{j_1},},\ldots ,p^{e_{i_k}})}\simeq \bigoplus \dfrac{R}{(\mathrm{lcm}(p^{e_{j_1},},\ldots ,p^{e_{i_k}}))}.
+        \end{align*}
+        从而 $\mathrm{ann}_R\left(\bigwedge ^k(M)\right)=\mathrm{ann}_R(R/(p^{e_k}))=(p^{e_k})$.
+    \end{proof}
+\end{proposition}
+
+\begin{remark}[PID 上有限生成模的结构]
+    对 PID $R$ 上有限生成模 $M$, 有同构
+    \begin{align*}
+        M\simeq R^{\mathrm{rank}(M/\mathrm{Tor}(M))}\,\,\oplus \,\bigoplus_{k\geq 1} \dfrac{R}{\mathrm{ann}_R\left(\bigwedge ^k(M)\right)}.
+    \end{align*}
+\end{remark}
+
+\end{document}
