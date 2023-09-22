@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.6.13)  25 JUL 2023 21:28
+This is XeTeX, Version 3.14159265-2.6-0.999992 (TeX Live 2020/W32TeX) (preloaded format=xelatex 2020.6.13)  18 SEP 2023 19:45
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1141,39 +1141,42 @@ Overfull \hbox (21.07874pt too wide) in paragraph at lines 49--49
 [][] 
  []
 
+(./main.toc)
+\tf@toc=\write6
+\openout6 = `main.toc'.
+
+
 
 LaTeX Font Warning: Font shape `U/rsfs/m/n' in size <10.53937> not available
-(Font)              size <10.95> substituted on input line 53.
+(Font)              size <10.95> substituted on input line 54.
 
 [1
 
-] [2] [3] [4]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 330.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 330.
+] [2] [3]
+LaTeX Font Info:    Trying to load font information for U+eus on input line 336.
+ (c:/texlive/2020/texmf-dist/tex/latex/amsfonts/ueus.fd
+File: ueus.fd 2013/01/14 v3.01 Euler Script
+) [4]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 348.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 348.
  (./main.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 330.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 330.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 348.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 348.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: F2E453B666AB0BE13296B84E4CB88BB5;369.
 
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: F195398AD6F981A3ABF450A06E549436;238
-(rerunfilecheck)             After:  4AA5787E48488448BD006B072000511A;123.
 
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 0.41063pt have occurred.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 330.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 348.
  ) 
 Here is how much of TeX's memory you used:
- 34038 strings out of 479418
- 698498 string characters out of 5888105
- 1119358 words of memory out of 5000000
- 50894 multiletter control sequences out of 15000+600000
- 541509 words of font info for 91 fonts, out of 8000000 for 9000
+ 34056 strings out of 479418
+ 698758 string characters out of 5888105
+ 1104947 words of memory out of 5000000
+ 50903 multiletter control sequences out of 15000+600000
+ 542109 words of font info for 94 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  73i,17n,90p,1048b,1191s stack positions out of 5000i,500n,10000p,200000b,80000s
 
