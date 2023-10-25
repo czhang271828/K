@@ -1,11 +1,11 @@
 INFO: latexindent.exe version 3.8, 2020-03-21, a script to indent .tex files
       latexindent.exe lives here: C:/texlive/2020/bin/win32/
-      Tue Jul 25 22:50:07 2023
-      Filename: c:/Users/czhan/Documents/GitHub/z/K-notes/Ωªªªª∑µƒ Picard »∫/__latexindent_temp_main.tex
+      Thu Sep 28 21:35:46 2023
+      Filename: c:/Users/czhan/Desktop/untitled/__latexindent_temp_LaTeX –¥◊˜ƒ£∞Â.tex
 INFO: Processing switches:
       -y|--yaml: YAML settings specified via command line
       -c|--cruft: cruft directory
-INFO: Directory for backup files and c:/Users/czhan/Documents/GitHub/z/K-notes/∑∫∫Ø∑÷Œˆ ∞“≈//indent.log: c:/Users/czhan/Documents/GitHub/z/K-notes/∑∫∫Ø∑÷Œˆ ∞“≈/
+INFO: Directory for backup files and c:/Users/czhan/Documents/GitHub/K/∑∫∫Ø∑÷Œˆ ∞“≈//indent.log: c:/Users/czhan/Documents/GitHub/K/∑∫∫Ø∑÷Œˆ ∞“≈/
 INFO: YAML settings read: defaultSettings.yaml
       Reading defaultSettings.yaml from C:/texlive/2020/bin/win32/defaultSettings.yaml
       Reading defaultSettings.yaml (2nd attempt, TeXLive, Windows) from C:/texlive/2020/bin/win32/../../texmf-dist/scripts/latexindent/defaultSettings.yaml
@@ -14,7 +14,9 @@ INFO: YAML settings read: indentconfig.yaml or .indentconfig.yaml
       To specify user settings you would put indentconfig.yaml here: C:\Users\czhan/indentconfig.yaml
       Alternatively, you can use the hidden file .indentconfig.yaml as: C:\Users\czhan/.indentconfig.yaml
 INFO: YAML settings read: -y switch
-      Updating masterSettings with defaultIndent:   INFOINFO: Phase 1: searching for objecINFOINFO: Phase 2: finding surrounding indentation
+      Updating masterSettings with defaultIndent:     
+INFO: Phase 1: searching for objects
+INFO: Phase 2: finding surrounding indentation
 INFO: Phase 3: indenting objects
 INFO: Phase 4: final indentation check
 INFO: Output routine:
@@ -22,4 +24,3 @@ INFO: Output routine:
       --------------
 INFO: Please direct all communication/issues to:
       https://github.com/cmhughes/latexindent.pl
-ndent.pl
